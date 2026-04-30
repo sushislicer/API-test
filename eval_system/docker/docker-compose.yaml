@@ -1,0 +1,72 @@
+version: "3.9"
+
+services:
+  model:
+    image: python:3.10-slim
+    working_dir: /workspace
+    volumes:
+      - ../..:/workspace
+    command:
+      [
+        "python3",
+        "-m",
+        "eval_system.model_server.server",
+        "--adapter",
+        "lingbot-va",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "50051"
+      ]
+    ports:
+      - "50051:50051"
+
+  simulator:
+    image: python:3.10-slim
+    working_dir: /workspace
+    volumes:
+      - ../..:/workspace
+    command:
+      [
+        "python3",
+        "-m",
+        "eval_system.sim_server.server",
+        "--adapter",
+        "libero",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "50052"
+      ]
+    ports:
+      - "50052:50052"
+
+  evaluator:
+    image: python:3.10-slim
+    working_dir: /workspace
+    volumes:
+      - ../..:/workspace
+    depends_on:
+      - model
+      - simulator
+    command:
+      [
+        "python3",
+        "-m",
+        "eval_system.evaluator.run_eval",
+        "--model_endpoint",
+        "grpc://model:50051",
+        "--sim_endpoint",
+        "grpc://simulator:50052",
+        "--benchmark",
+        "libero",
+        "--task",
+        "libero_spatial",
+        "--episodes",
+        "5",
+        "--horizon",
+        "25",
+        "--predict_next",
+        "--output_dir",
+        "out"
+      ]

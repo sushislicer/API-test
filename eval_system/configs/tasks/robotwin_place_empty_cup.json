@@ -1,0 +1,63 @@
+{
+  "benchmark": "robotwin",
+  "task": "place_empty_cup",
+  "episode_horizon": 100,
+  "seed": 0,
+  "instruction": "",
+  "metadata": {
+    "simulators": {
+      "robotwin": {
+        "repo_path": "/home/yangc/Lab/API/simulators/RoboTwin",
+        "task_name": "place_empty_cup",
+        "task_config": "demo_clean",
+        "action_type": "qpos",
+        "strict_action_dim": true,
+        "instruction_source": "env"
+      }
+    },
+    "models": {
+      "lda-1b": {
+        "profile": "robotwin",
+        "payload_mode": "examples",
+        "image_keys": [
+          "observation.head_camera.rgb",
+          "observation.left_camera.rgb",
+          "observation.right_camera.rgb"
+        ],
+        "state_keys": ["joint_action.vector"],
+        "require_state": true,
+        "expected_state_dim": 16,
+        "expected_image_count": 3,
+        "action_type": "qpos",
+        "expected_action_dim": 16,
+        "action_layout": "time_first",
+        "allow_normalized_actions": false
+      },
+      "lingbot-va": {
+        "env_type": "robotwin",
+        "action_type": "ee"
+      }
+    },
+    "training": {
+      "lda-1b": {
+        "robotwin": {
+          "action_dim": 16,
+          "steps": 200000,
+          "lr": 0.00004,
+          "batch_size": 64,
+          "save_interval": 10000
+        }
+      },
+      "lingbot-va": {
+        "robotwin": {
+          "config_name": "robotwin_train",
+          "steps": 50000,
+          "lr": 0.00001,
+          "batch_size": 1,
+          "gradient_accumulation_steps": 1,
+          "save_interval": 1000
+        }
+      }
+    }
+  }
+}

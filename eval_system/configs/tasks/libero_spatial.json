@@ -1,0 +1,61 @@
+{
+  "benchmark": "libero",
+  "task": "libero_spatial",
+  "episode_horizon": 25,
+  "seed": 0,
+  "instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+  "metadata": {
+    "task_suite": "libero_spatial",
+    "task_id": 0,
+    "task_family": "spatial_manipulation",
+    "observation_schema": "canonical_v1",
+    "action_schema": "delta_ee_pose_v1",
+    "simulators": {
+      "libero": {
+        "repo_path": "/home/yangc/Lab/API/simulators/LIBERO",
+        "task_suite": "libero_spatial",
+        "task_id": 0,
+        "camera_height": 128,
+        "camera_width": 128
+      }
+    },
+    "models": {
+      "lingbot-va": {
+        "env_type": "libero",
+        "action_type": "delta_ee_pose",
+        "flip_libero_images": true,
+        "keyframes_per_chunk": 4
+      },
+      "lda-1b": {
+        "payload_mode": "examples",
+        "image_keys": ["agentview_image", "robot0_eye_in_hand_image"],
+        "state_keys": ["robot0_eef_pos", "robot0_gripper_qpos"],
+        "action_type": "delta_ee_pose",
+        "action_layout": "time_first"
+      }
+    },
+    "training": {
+      "lingbot-va": {
+        "libero": {
+          "config_name": "libero_train",
+          "steps": 5000,
+          "lr": 0.00001,
+          "batch_size": 1,
+          "gradient_accumulation_steps": 10,
+          "save_interval": 200
+        }
+      },
+      "lda-1b": {
+        "libero": {
+          "config_yaml": "lda/config/training/LDA_pretrain.yaml",
+          "data_mix": "demo_data",
+          "steps": 200000,
+          "lr": 0.00004,
+          "batch_size": 64,
+          "save_interval": 10000,
+          "eval_interval": 100
+        }
+      }
+    }
+  }
+}

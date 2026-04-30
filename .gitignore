@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+results/eval/*
+results/train/*
+results/preflight/*
+!results/eval/.gitkeep
+!results/train/.gitkeep
+!results/preflight/.gitkeep
+
+out/
+api/out/
+
