@@ -7,6 +7,7 @@ Use this when the repo is pulled onto the A800 machine.
 ```bash
 cd /path/to/API
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${DOWNLOAD_ROOT:-${API_ROOT}/downloads}"
 python -m eval_system.diagnostics.preflight \
   --benchmark robotwin \
   --task robotwin_place_empty_cup \
@@ -31,7 +32,9 @@ python -m eval_system.diagnostics.preflight \
 ```
 
 The LDA API adapter expects LDA's native WebSocket policy server to already be
-running in the LDA environment.
+running in the LDA environment. Put the checkpoint under
+`${DOWNLOAD_ROOT}/checkpoints/lda-1b/` or set `DOWNLOAD_ROOT` to the mounted disk
+that already contains the checkpoint tree.
 
 3. Health-check the API boundary:
 

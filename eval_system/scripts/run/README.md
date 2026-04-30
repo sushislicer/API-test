@@ -5,6 +5,9 @@ Set `PYTHON_BIN=python` if a conda environment only exposes `python`; the
 default command is `python3`.
 Examples assume you are at the repo root. `API_ROOT="$(pwd)"` makes the same
 commands work after cloning to any remote path.
+Set `DOWNLOAD_ROOT` to the checkpoint/asset cache. The default is
+`${API_ROOT}/downloads`; on the A800 machine this can point to a larger mounted
+disk.
 
 ## 1. Start Simulator Server
 
@@ -12,6 +15,7 @@ LIBERO:
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export LIBERO_ROOT="${API_ROOT}/simulators/LIBERO"
 ./eval_system/scripts/run/start_sim_server.sh \
   --env env-libero \
@@ -24,6 +28,7 @@ RoboTwin:
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin"
 ./eval_system/scripts/run/start_sim_server.sh \
   --env env-robotwin \
@@ -49,6 +54,7 @@ Start the native LingBot-VA server first, then start this API model server:
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va"
 export LINGBOT_VA_HOST=127.0.0.1
 export LINGBOT_VA_PORT=29056
@@ -63,6 +69,7 @@ The `lda-1b` adapter is a client for LDA's native WebSocket policy server:
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export LDA_1B_ROOT="${API_ROOT}/models/LDA-1B"
 export LDA_1B_HOST=127.0.0.1
 export LDA_1B_PORT=10093
@@ -116,6 +123,7 @@ conditioning:
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin"
 ./eval_system/scripts/run/start_sim_server.sh \
   --env env-robotwin \

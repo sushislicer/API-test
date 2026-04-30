@@ -12,6 +12,7 @@ server to already be running, typically from `models/lingbot-va`:
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va"
 export LINGBOT_VA_HOST=127.0.0.1
 export LINGBOT_VA_PORT=29056
@@ -76,6 +77,7 @@ LingBot-VA uses different attention modes for each workflow: set the checkpoint
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export LDA_1B_ROOT="${API_ROOT}/models/LDA-1B"
 export LDA_1B_HOST=127.0.0.1
 export LDA_1B_PORT=10093
@@ -113,6 +115,21 @@ contains multiple datasets, also set `unnorm_key`. By default, the adapter
 refuses to pass `normalized_actions` through without stats; set
 `allow_normalized_actions: true` only when the target simulator intentionally
 consumes normalized action units.
+
+Recommended checkpoint cache:
+
+```json
+{
+  "metadata": {
+    "models": {
+      "lda-1b": {
+        "checkpoint_path": "downloads/checkpoints/lda-1b/run/checkpoints/step.pt",
+        "unnorm_key": "robotwin"
+      }
+    }
+  }
+}
+```
 
 For RoboTwin, use an explicit action contract. The included
 `robotwin_place_empty_cup` task profile expects 16D dual-arm actions and will

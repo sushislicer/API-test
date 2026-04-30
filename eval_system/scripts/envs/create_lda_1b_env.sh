@@ -33,6 +33,7 @@ Default mode follows the LDA-1B README installation:
   pip install --no-deps -e .
 
 This script does not download LDA checkpoints, Qwen checkpoints, or DINO checkpoints.
+Default artifact cache: ${DOWNLOAD_ROOT}/checkpoints/lda-1b
 EOF
 }
 
@@ -103,3 +104,4 @@ link_api_package "${ENV_NAME}"
 
 info "done. Run with: conda activate ${ENV_NAME}"
 info "for this API adapter, set LDA_1B_ROOT=${LDA_REPO} or pass task.metadata.repo_path"
+info "put LDA checkpoints under ${DOWNLOAD_ROOT}/checkpoints/lda-1b or set DOWNLOAD_ROOT to another disk"

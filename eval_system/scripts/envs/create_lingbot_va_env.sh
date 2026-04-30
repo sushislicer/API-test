@@ -57,6 +57,7 @@ Default mode follows the LingBot-VA README installation:
   pip install flash-attn --no-build-isolation
 
 This script does not download LingBot-VA checkpoints or datasets.
+Default artifact cache: ${DOWNLOAD_ROOT}/checkpoints/lingbot-va
 EOF
 }
 
@@ -152,3 +153,4 @@ link_api_package "${ENV_NAME}"
 
 info "done. Run with: conda activate ${ENV_NAME}"
 info "for this API adapter, set LINGBOT_VA_ROOT=${LINGBOT_REPO} or pass task.metadata.repo_path"
+info "put LingBot-VA checkpoints under ${DOWNLOAD_ROOT}/checkpoints/lingbot-va or set DOWNLOAD_ROOT to another disk"

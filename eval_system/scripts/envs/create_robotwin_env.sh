@@ -32,6 +32,7 @@ Default mode follows the official RoboTwin installer:
 
 The manual mode uses requirements.txt if present, otherwise script/requirements.txt.
 It does not install CuRobo/pytorch3d unless those are covered by the repo files.
+Default artifact cache: ${DOWNLOAD_ROOT}/assets/robotwin
 EOF
 }
 
@@ -109,3 +110,4 @@ link_api_package "${ENV_NAME}"
 
 info "done. Run with: conda activate ${ENV_NAME}"
 info "for this API adapter, set ROBOTWIN_ROOT=${ROBOTWIN_REPO} or pass task.metadata.repo_path"
+info "use ${DOWNLOAD_ROOT}/assets/robotwin for manually cached RoboTwin assets, or set DOWNLOAD_ROOT to another disk"

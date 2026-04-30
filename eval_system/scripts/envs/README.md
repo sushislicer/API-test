@@ -4,6 +4,17 @@ These scripts create conda environments from upstream repos you already have on
 disk. They do not run automatically, download checkpoints, download simulator
 assets, clone repos, or start servers.
 
+Heavy artifacts should live under `downloads/` by default:
+
+```bash
+export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${DOWNLOAD_ROOT:-${API_ROOT}/downloads}"
+```
+
+On the remote A800 machine, point `DOWNLOAD_ROOT` at a larger mounted disk if
+needed. The setup scripts only print this path; they do not download checkpoints
+or assets unless an explicit option such as `--download-assets` is used.
+
 Use separate environments for heavy stacks:
 
 ```bash
@@ -80,6 +91,7 @@ client:
 ```bash
 conda activate env-lingbot-va
 export API_ROOT=/path/to/API
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 cd "${API_ROOT}/models/lingbot-va"
 START_PORT=29056 bash evaluation/robotwin/launch_server.sh
 ```
@@ -88,6 +100,7 @@ In a second terminal:
 
 ```bash
 cd "${API_ROOT}"
+DOWNLOAD_ROOT="${DOWNLOAD_ROOT:-${API_ROOT}/downloads}" \
 LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va" \
 LINGBOT_VA_HOST=127.0.0.1 \
 LINGBOT_VA_PORT=29056 \
@@ -140,9 +153,10 @@ LDA server from the LDA env:
 ```bash
 conda activate env-lda-1b
 export API_ROOT=/path/to/API
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 cd "${API_ROOT}/models/LDA-1B"
 python deployment/model_server/server_policy.py \
-  --ckpt_path /path/to/your/lda/checkpoint \
+  --ckpt_path "${DOWNLOAD_ROOT}/checkpoints/lda-1b/path/to/checkpoint.pt" \
   --port 10093 \
   --use_bf16
 ```
@@ -151,6 +165,7 @@ In a second terminal:
 
 ```bash
 cd "${API_ROOT}"
+DOWNLOAD_ROOT="${DOWNLOAD_ROOT:-${API_ROOT}/downloads}" \
 LDA_1B_ROOT="${API_ROOT}/models/LDA-1B" \
 LDA_1B_HOST=127.0.0.1 \
 LDA_1B_PORT=10093 \
@@ -233,6 +248,7 @@ Run the simulator server:
 
 ```bash
 export API_ROOT=/path/to/API
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin" \
 ./eval_system/scripts/run/start_sim_server.sh \
   --env env-robotwin \

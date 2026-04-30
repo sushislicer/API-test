@@ -17,6 +17,10 @@ The transport is intentionally simple for local prototyping. The interfaces are 
 
 ```text
 api/
+  downloads/
+    checkpoints/
+    assets/
+    datasets/
   eval_system/
     common/
     model_server/
@@ -30,6 +34,11 @@ api/
     train/
     preflight/
 ```
+
+`downloads/` is the default local cache for heavyweight checkpoints, simulator
+assets, and datasets. It is intentionally ignored by git except for placeholder
+files and `downloads/README.md`. On a remote machine with a larger disk, set
+`DOWNLOAD_ROOT=/path/to/cache` before starting services.
 
 ## Quick start
 
@@ -92,6 +101,7 @@ run this API model adapter as a client:
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export LIBERO_ROOT="${API_ROOT}/simulators/LIBERO"
 ./eval_system/scripts/run/start_sim_server.sh --env env-libero --adapter libero --port 50052
 
@@ -107,6 +117,7 @@ model adapter as a client:
 
 ```bash
 export API_ROOT="$(pwd)"
+export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export LDA_1B_ROOT="${API_ROOT}/models/LDA-1B"
 export LDA_1B_HOST=127.0.0.1
 export LDA_1B_PORT=10093

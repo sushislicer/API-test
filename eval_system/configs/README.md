@@ -24,3 +24,14 @@ results/
   preflight/  static contract reports
 ```
 
+Heavy downloads should use `DOWNLOAD_ROOT`, defaulting to repo-root
+`downloads/`. See `paths.example.env`:
+
+```bash
+source eval_system/configs/paths.example.env
+```
+
+Model checkpoints can then be referenced in metadata with portable paths such as
+`downloads/checkpoints/lda-1b/run/checkpoints/step.pt`. The `downloads/` prefix
+is resolved through `DOWNLOAD_ROOT`, so the same config can use a repo-local
+cache on a laptop and a mounted disk on the A800 machine.
