@@ -79,15 +79,16 @@ client:
 
 ```bash
 conda activate env-lingbot-va
-cd /home/yangc/Lab/API/models/lingbot-va
+export API_ROOT=/path/to/API
+cd "${API_ROOT}/models/lingbot-va"
 START_PORT=29056 bash evaluation/robotwin/launch_server.sh
 ```
 
 In a second terminal:
 
 ```bash
-cd /home/yangc/Lab/API
-LINGBOT_VA_ROOT=/home/yangc/Lab/API/models/lingbot-va \
+cd "${API_ROOT}"
+LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va" \
 LINGBOT_VA_HOST=127.0.0.1 \
 LINGBOT_VA_PORT=29056 \
 ./eval_system/scripts/run/start_model_server.sh \
@@ -138,7 +139,8 @@ LDA server from the LDA env:
 
 ```bash
 conda activate env-lda-1b
-cd /home/yangc/Lab/API/models/LDA-1B
+export API_ROOT=/path/to/API
+cd "${API_ROOT}/models/LDA-1B"
 python deployment/model_server/server_policy.py \
   --ckpt_path /path/to/your/lda/checkpoint \
   --port 10093 \
@@ -148,8 +150,8 @@ python deployment/model_server/server_policy.py \
 In a second terminal:
 
 ```bash
-cd /home/yangc/Lab/API
-LDA_1B_ROOT=/home/yangc/Lab/API/models/LDA-1B \
+cd "${API_ROOT}"
+LDA_1B_ROOT="${API_ROOT}/models/LDA-1B" \
 LDA_1B_HOST=127.0.0.1 \
 LDA_1B_PORT=10093 \
 ./eval_system/scripts/run/start_model_server.sh \
@@ -230,7 +232,8 @@ bash eval_system/scripts/envs/create_robotwin_env.sh \
 Run the simulator server:
 
 ```bash
-ROBOTWIN_ROOT=/home/yangc/Lab/API/simulators/RoboTwin \
+export API_ROOT=/path/to/API
+ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin" \
 ./eval_system/scripts/run/start_sim_server.sh \
   --env env-robotwin \
   --adapter robotwin \
@@ -245,7 +248,7 @@ official torch/cu113 wheel set, then editable install.
 ```bash
 bash eval_system/scripts/envs/create_libero_env.sh \
   --env env-libero \
-  --repo /home/yangc/Lab/API/simulators/LIBERO
+  --repo simulators/LIBERO
 ```
 
 Skip the torch install if you already installed a GPU-specific PyTorch build:
@@ -253,7 +256,7 @@ Skip the torch install if you already installed a GPU-specific PyTorch build:
 ```bash
 bash eval_system/scripts/envs/create_libero_env.sh \
   --env env-libero \
-  --repo /home/yangc/Lab/API/simulators/LIBERO \
+  --repo simulators/LIBERO \
   --skip-torch
 ```
 

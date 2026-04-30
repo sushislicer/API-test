@@ -7,7 +7,7 @@
   "metadata": {
     "simulators": {
       "robotwin": {
-        "repo_path": "/home/yangc/Lab/API/simulators/RoboTwin",
+        "repo_path": "simulators/RoboTwin",
         "task_name": "place_empty_cup",
         "task_config": "demo_clean",
         "action_type": "qpos",

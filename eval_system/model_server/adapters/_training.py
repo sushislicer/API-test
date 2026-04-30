@@ -7,6 +7,7 @@ import time
 from pathlib import Path
 from typing import Any
 
+from ...common.paths import resolve_path
 from ...common.schemas import TrainingSpec
 
 
@@ -106,7 +107,7 @@ def external_training_request(
 
     command = command_from_value(command_value)
     command.extend(string_list(metadata.get("extra_args")))
-    cwd = Path(metadata.get("cwd") or metadata.get("repo_path") or default_cwd).expanduser().resolve()
+    cwd = resolve_path(metadata.get("cwd") or metadata.get("repo_path") or default_cwd)
     log_path = metadata.get("log_path")
     if log_path is None and spec.output_dir:
         log_path = str(Path(spec.output_dir).expanduser() / default_log_name)

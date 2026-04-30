@@ -3,13 +3,16 @@
 Use these scripts when the remote machine does not support Docker. Run each long-lived server in a separate terminal or `tmux` pane.
 Set `PYTHON_BIN=python` if a conda environment only exposes `python`; the
 default command is `python3`.
+Examples assume you are at the repo root. `API_ROOT="$(pwd)"` makes the same
+commands work after cloning to any remote path.
 
 ## 1. Start Simulator Server
 
 LIBERO:
 
 ```bash
-export LIBERO_ROOT=/home/yangc/Lab/API/simulators/LIBERO
+export API_ROOT="$(pwd)"
+export LIBERO_ROOT="${API_ROOT}/simulators/LIBERO"
 ./eval_system/scripts/run/start_sim_server.sh \
   --env env-libero \
   --adapter libero \
@@ -20,7 +23,8 @@ export LIBERO_ROOT=/home/yangc/Lab/API/simulators/LIBERO
 RoboTwin:
 
 ```bash
-export ROBOTWIN_ROOT=/home/yangc/Lab/API/simulators/RoboTwin
+export API_ROOT="$(pwd)"
+export ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin"
 ./eval_system/scripts/run/start_sim_server.sh \
   --env env-robotwin \
   --adapter robotwin \
@@ -44,7 +48,8 @@ The `lingbot-va` adapter is a client for LingBot-VA's native WebSocket server.
 Start the native LingBot-VA server first, then start this API model server:
 
 ```bash
-export LINGBOT_VA_ROOT=/home/yangc/Lab/API/models/lingbot-va
+export API_ROOT="$(pwd)"
+export LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va"
 export LINGBOT_VA_HOST=127.0.0.1
 export LINGBOT_VA_PORT=29056
 ./eval_system/scripts/run/start_model_server.sh \
@@ -57,7 +62,8 @@ export LINGBOT_VA_PORT=29056
 The `lda-1b` adapter is a client for LDA's native WebSocket policy server:
 
 ```bash
-export LDA_1B_ROOT=/home/yangc/Lab/API/models/LDA-1B
+export API_ROOT="$(pwd)"
+export LDA_1B_ROOT="${API_ROOT}/models/LDA-1B"
 export LDA_1B_HOST=127.0.0.1
 export LDA_1B_PORT=10093
 ./eval_system/scripts/run/start_model_server.sh \
@@ -109,7 +115,8 @@ environment-provided instruction so constant generic prompts do not mask task
 conditioning:
 
 ```bash
-export ROBOTWIN_ROOT=/home/yangc/Lab/API/simulators/RoboTwin
+export API_ROOT="$(pwd)"
+export ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin"
 ./eval_system/scripts/run/start_sim_server.sh \
   --env env-robotwin \
   --adapter robotwin \

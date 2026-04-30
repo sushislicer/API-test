@@ -91,10 +91,11 @@ start LingBot's native WebSocket inference server from `models/lingbot-va`, then
 run this API model adapter as a client:
 
 ```bash
-export LIBERO_ROOT=/home/yangc/Lab/API/simulators/LIBERO
+export API_ROOT="$(pwd)"
+export LIBERO_ROOT="${API_ROOT}/simulators/LIBERO"
 ./eval_system/scripts/run/start_sim_server.sh --env env-libero --adapter libero --port 50052
 
-export LINGBOT_VA_ROOT=/home/yangc/Lab/API/models/lingbot-va
+export LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va"
 export LINGBOT_VA_HOST=127.0.0.1
 export LINGBOT_VA_PORT=29056
 ./eval_system/scripts/run/start_model_server.sh --env env-lingbot-va --adapter lingbot-va --port 50051
@@ -105,7 +106,8 @@ LDA's native WebSocket policy server from `models/LDA-1B`, then run this API
 model adapter as a client:
 
 ```bash
-export LDA_1B_ROOT=/home/yangc/Lab/API/models/LDA-1B
+export API_ROOT="$(pwd)"
+export LDA_1B_ROOT="${API_ROOT}/models/LDA-1B"
 export LDA_1B_HOST=127.0.0.1
 export LDA_1B_PORT=10093
 ./eval_system/scripts/run/start_model_server.sh --env env-lda-1b --adapter lda-1b --port 50051

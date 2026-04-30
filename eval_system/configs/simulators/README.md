@@ -16,7 +16,7 @@ LIBERO example:
   "metadata": {
     "simulators": {
       "libero": {
-        "repo_path": "/home/yangc/Lab/API/simulators/LIBERO",
+        "repo_path": "simulators/LIBERO",
         "task_suite": "libero_spatial",
         "task_id": 0,
         "init_state_id": 0,
@@ -28,8 +28,9 @@ LIBERO example:
 }
 ```
 
-If `repo_path` is omitted, the LIBERO adapter checks `LIBERO_ROOT`, then falls
-back to `simulators/LIBERO` inside this API checkout.
+Relative `repo_path` values are resolved from the API checkout root. If
+`repo_path` is omitted, the LIBERO adapter checks `LIBERO_ROOT`, then falls back
+to `simulators/LIBERO` inside this API checkout.
 
 SimplerEnv example:
 
@@ -53,7 +54,7 @@ RoboTwin example:
   "metadata": {
     "simulators": {
       "robotwin": {
-        "repo_path": "/home/yangc/Lab/API/simulators/RoboTwin",
+        "repo_path": "simulators/RoboTwin",
         "task_name": "place_empty_cup",
         "task_config": "demo_clean",
         "action_type": "qpos",
@@ -65,8 +66,9 @@ RoboTwin example:
 }
 ```
 
-If `repo_path` is omitted, the RoboTwin adapter first checks `ROBOTWIN_ROOT`,
-then falls back to `simulators/RoboTwin` inside this API checkout.
+Relative `repo_path` values are resolved from the API checkout root. If
+`repo_path` is omitted, the RoboTwin adapter first checks `ROBOTWIN_ROOT`, then
+falls back to `simulators/RoboTwin` inside this API checkout.
 `strict_action_dim` is enabled by default so an LDA checkpoint trained for a
 different embodiment cannot silently send 29D/138D actions into a 16D RoboTwin
 controller.

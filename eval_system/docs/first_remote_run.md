@@ -5,7 +5,8 @@ Use this when the repo is pulled onto the A800 machine.
 1. Confirm paths without installing or launching:
 
 ```bash
-cd /home/yangc/Lab/API
+cd /path/to/API
+export API_ROOT="$(pwd)"
 python -m eval_system.diagnostics.preflight \
   --benchmark robotwin \
   --task robotwin_place_empty_cup \

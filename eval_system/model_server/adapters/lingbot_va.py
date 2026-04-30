@@ -13,6 +13,7 @@ from typing import Any
 from ...common.arrays import decode_array
 from ...common.base import ModelAdapter
 from ...common.metadata import apply_aliases, scoped_metadata, training_metadata
+from ...common.paths import api_root, resolve_path
 from ...common.registry import register_model
 from ...common.schemas import Action, Observation, TaskSpec, TrainingSpec
 
@@ -65,11 +66,11 @@ class LingBotVAAdapter(ModelAdapter):
         self.initial_eef_pose = None
 
         metadata = scoped_metadata(task.metadata, "lingbot-va", "models", "model")
-        self.repo_root = Path(
+        self.repo_root = resolve_path(
             metadata.get("repo_path")
             or os.environ.get("LINGBOT_VA_ROOT")
             or self.repo_root
-        ).expanduser().resolve()
+        )
         self.host = str(metadata.get("host") or os.environ.get("LINGBOT_VA_HOST") or self.host)
         self.port = int(metadata.get("port") or os.environ.get("LINGBOT_VA_PORT") or self.port)
         self.api_key = metadata.get("api_key") or os.environ.get("LINGBOT_VA_API_KEY")
@@ -219,11 +220,11 @@ class LingBotVAAdapter(ModelAdapter):
                 "num_workers": "load_worker",
             },
         )
-        repo_root = Path(
+        repo_root = resolve_path(
             metadata.get("repo_path")
             or os.environ.get("LINGBOT_VA_ROOT")
             or self.repo_root
-        ).expanduser().resolve()
+        )
         train_module = repo_root / "wan_va" / "train.py"
         if not train_module.exists():
             raise RuntimeError(f"LingBot-VA training module was not found at {train_module}")
@@ -623,8 +624,7 @@ class _LingBotWebSocketClient:
 
 
 def _default_lingbot_repo() -> Path:
-    api_root = Path(__file__).resolve().parents[3]
-    return api_root / "models" / "lingbot-va"
+    return api_root() / "models" / "lingbot-va"
 
 
 def _infer_env_type(benchmark: str) -> str:

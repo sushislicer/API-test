@@ -12,7 +12,7 @@
     "action_schema": "delta_ee_pose_v1",
     "simulators": {
       "libero": {
-        "repo_path": "/home/yangc/Lab/API/simulators/LIBERO",
+        "repo_path": "simulators/LIBERO",
         "task_suite": "libero_spatial",
         "task_id": 0,
         "camera_height": 128,

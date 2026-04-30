@@ -11,7 +11,8 @@ separate conda environments and read only their scoped settings.
 server to already be running, typically from `models/lingbot-va`:
 
 ```bash
-export LINGBOT_VA_ROOT=/home/yangc/Lab/API/models/lingbot-va
+export API_ROOT="$(pwd)"
+export LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va"
 export LINGBOT_VA_HOST=127.0.0.1
 export LINGBOT_VA_PORT=29056
 python -m eval_system.model_server.server --adapter lingbot-va --port 50051
@@ -24,7 +25,7 @@ Task metadata can override:
   "metadata": {
     "models": {
       "lingbot-va": {
-        "repo_path": "/home/yangc/Lab/API/models/lingbot-va",
+        "repo_path": "models/lingbot-va",
         "host": "127.0.0.1",
         "port": 29056,
         "env_type": "libero",
@@ -74,7 +75,8 @@ LingBot-VA uses different attention modes for each workflow: set the checkpoint
 `deployment/model_server/server_policy.py` server to already be running:
 
 ```bash
-export LDA_1B_ROOT=/home/yangc/Lab/API/models/LDA-1B
+export API_ROOT="$(pwd)"
+export LDA_1B_ROOT="${API_ROOT}/models/LDA-1B"
 export LDA_1B_HOST=127.0.0.1
 export LDA_1B_PORT=10093
 python -m eval_system.model_server.server --adapter lda-1b --port 50051
@@ -87,7 +89,7 @@ Common metadata:
   "metadata": {
     "models": {
       "lda-1b": {
-        "repo_path": "/home/yangc/Lab/API/models/LDA-1B",
+        "repo_path": "models/LDA-1B",
         "host": "127.0.0.1",
         "port": 10093,
         "payload_mode": "examples",

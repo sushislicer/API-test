@@ -12,6 +12,7 @@ from typing import Any
 from ...common.arrays import decode_array
 from ...common.base import ModelAdapter
 from ...common.metadata import apply_aliases, scoped_metadata, training_metadata
+from ...common.paths import api_root, resolve_path
 from ...common.registry import register_model
 from ...common.schemas import Action, Observation, TaskSpec, TrainingSpec
 from ._training import TrainingJobManager, bool_value as _training_bool_value, mask_env, string_dict, string_list
@@ -79,11 +80,11 @@ class LDA1BAdapter(ModelAdapter):
 
         metadata = scoped_metadata(task.metadata, "lda-1b", "models", "model")
         metadata = _with_profile_defaults(metadata, task.benchmark)
-        self.repo_root = Path(
+        self.repo_root = resolve_path(
             metadata.get("repo_path")
             or os.environ.get("LDA_1B_ROOT")
             or _default_lda_repo()
-        ).expanduser().resolve()
+        )
         self.host = str(metadata.get("host") or os.environ.get("LDA_1B_HOST") or "127.0.0.1")
         self.port = int(metadata.get("port") or os.environ.get("LDA_1B_PORT") or 10093)
         self.api_key = metadata.get("api_key") or os.environ.get("LDA_1B_API_KEY")
@@ -226,11 +227,11 @@ class LDA1BAdapter(ModelAdapter):
                 "logging_steps": "logging_frequency",
             },
         )
-        repo_root = Path(
+        repo_root = resolve_path(
             metadata.get("repo_path")
             or os.environ.get("LDA_1B_ROOT")
             or self.repo_root
-        ).expanduser().resolve()
+        )
         train_script = repo_root / "lda" / "training" / "train_LDA.py"
         if not train_script.exists():
             raise RuntimeError(f"LDA-1B training module was not found at {train_script}")
@@ -695,8 +696,7 @@ class _LDAWebSocketClient:
 
 
 def _default_lda_repo() -> Path:
-    api_root = Path(__file__).resolve().parents[3]
-    return api_root / "models" / "LDA-1B"
+    return api_root() / "models" / "LDA-1B"
 
 
 def _with_profile_defaults(metadata: dict[str, Any], benchmark: str) -> dict[str, Any]:
@@ -894,7 +894,7 @@ def _resolve_norm_stats_path(metadata: dict[str, Any]) -> Path | None:
         or metadata.get("dataset_stats_path")
     )
     if raw_stats_path:
-        path = Path(str(raw_stats_path)).expanduser().resolve()
+        path = resolve_path(raw_stats_path)
         if not path.exists():
             raise FileNotFoundError(f"LDA-1B action norm stats file does not exist: {path}")
         return path
@@ -909,7 +909,7 @@ def _resolve_norm_stats_path(metadata: dict[str, Any]) -> Path | None:
     if not raw_checkpoint:
         return None
 
-    checkpoint_path = Path(str(raw_checkpoint)).expanduser().resolve()
+    checkpoint_path = resolve_path(raw_checkpoint)
     candidates: list[Path] = []
     if checkpoint_path.is_file():
         candidates.append(checkpoint_path.parent / "dataset_statistics.json")

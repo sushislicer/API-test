@@ -8,6 +8,7 @@ from typing import Any
 
 from ...common.base import SimulatorAdapter
 from ...common.metadata import scoped_metadata
+from ...common.paths import api_root, resolve_path
 from ...common.registry import register_sim
 from ...common.schemas import Action, Observation, StepResult, TaskSpec
 from ._native_utils import action_type, action_vector, jsonable, native_observation
@@ -163,8 +164,8 @@ class RoboTwinAdapter(SimulatorAdapter):
     def _resolve_repo_root(self, metadata: dict) -> Path | None:
         raw_path = metadata.get("repo_path") or os.environ.get("ROBOTWIN_ROOT")
         if raw_path:
-            return Path(raw_path).expanduser().resolve()
-        local_repo = Path(__file__).resolve().parents[3] / "simulators" / "RoboTwin"
+            return resolve_path(raw_path)
+        local_repo = api_root() / "simulators" / "RoboTwin"
         if local_repo.exists():
             return local_repo.resolve()
         return None

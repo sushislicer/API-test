@@ -7,6 +7,7 @@ from typing import Any
 
 from ...common.base import SimulatorAdapter
 from ...common.metadata import scoped_metadata
+from ...common.paths import api_root, resolve_path
 from ...common.registry import register_sim
 from ...common.schemas import Action, Observation, StepResult, TaskSpec
 from ._native_utils import action_vector, extract_success, jsonable, native_observation, scalar_float
@@ -129,12 +130,12 @@ class LIBEROAdapter(SimulatorAdapter):
 def _prepare_libero_import_path(metadata: dict) -> None:
     raw_path = metadata.get("repo_path") or os.environ.get("LIBERO_ROOT")
     if raw_path is None:
-        default_path = Path(__file__).resolve().parents[3] / "simulators" / "LIBERO"
+        default_path = api_root() / "simulators" / "LIBERO"
         raw_path = str(default_path) if default_path.exists() else None
     if raw_path is None:
         return
 
-    repo_root = Path(str(raw_path)).expanduser().resolve()
+    repo_root = resolve_path(raw_path)
     for candidate in (repo_root, repo_root / "libero"):
         if candidate.exists() and str(candidate) not in sys.path:
             sys.path.insert(0, str(candidate))
