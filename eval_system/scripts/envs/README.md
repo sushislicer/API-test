@@ -33,6 +33,26 @@ That creates:
 .conda-envs/api-robotwin
 ```
 
+If an earlier debug run created old named envs under the global conda env root
+such as `api-lda-1b`, remove them before recreating the prefix envs:
+
+```bash
+bash eval_system/scripts/envs/cleanup_api_envs.sh --yes --named-only
+```
+
+To delete both the old named envs and any partial checkout-local `.conda-envs`
+prefixes, run:
+
+```bash
+bash eval_system/scripts/envs/cleanup_api_envs.sh --yes
+```
+
+You can also fold named-env cleanup into setup:
+
+```bash
+bash eval_system/scripts/envs/create_api_envs.sh --clean-stale-named
+```
+
 You can also create or repair one env at a time. `--env` accepts either a conda
 name or a prefix path:
 

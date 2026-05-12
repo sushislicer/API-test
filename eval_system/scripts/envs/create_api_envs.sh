@@ -9,6 +9,7 @@ ENV_ROOT="${API_CONDA_ENVS_DIR}"
 CREATE_LDA=1
 CREATE_LINGBOT=1
 CREATE_ROBOTWIN=1
+CLEAN_STALE_NAMED=0
 
 LDA_REPO="${LDA_1B_REPO:-$(default_repo_path "${API_ROOT}/models/LDA-1B")}"
 LINGBOT_REPO="${LINGBOT_VA_REPO:-$(default_repo_path "${API_ROOT}/models/lingbot-va")}"
@@ -41,6 +42,7 @@ Options:
   --lingbot-requirements       Install LingBot-VA requirements.txt instead of README package set.
   --robotwin-manual            Use RoboTwin requirements fallback instead of script/_install.sh.
   --download-robotwin-assets   Also run RoboTwin script/_download_assets.sh.
+  --clean-stale-named          Remove old named api-* envs before creating prefix envs.
   -h, --help                   Show this help.
 
 This script runs env creation sequentially to avoid conda package-cache races.
@@ -99,6 +101,10 @@ while [[ $# -gt 0 ]]; do
       ROBOTWIN_ARGS+=(--download-assets)
       shift
       ;;
+    --clean-stale-named)
+      CLEAN_STALE_NAMED=1
+      shift
+      ;;
     -h|--help)
       usage
       exit 0
@@ -113,6 +119,10 @@ if [[ "${ENV_ROOT}" != /* ]]; then
   ENV_ROOT="${API_ROOT}/${ENV_ROOT}"
 fi
 mkdir -p "${ENV_ROOT}"
+
+if [[ "${CLEAN_STALE_NAMED}" -eq 1 ]]; then
+  bash "${SCRIPT_DIR}/cleanup_api_envs.sh" --yes --named-only --env-root "${ENV_ROOT}"
+fi
 
 if [[ "${CREATE_LDA}" -eq 1 ]]; then
   info "creating API LDA-1B env at ${ENV_ROOT}/api-lda-1b"
