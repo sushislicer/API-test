@@ -1,0 +1,21 @@
+{
+  "check": "lda_e2e_short",
+  "status": "passed",
+  "steps": [
+    {
+      "step": "sim_health",
+      "ok": true,
+      "detail": "{\"adapter\":\"robotwin\",\"status\":\"ok\"}"
+    },
+    {
+      "step": "native_started",
+      "ok": true,
+      "detail": "returncode=None"
+    },
+    {
+      "step": "api_health",
+      "ok": true,
+      "detail": "{\"adapter\":\"lda-1b\",\"status\":\"ok\"}"
+    }
+  ]
+}

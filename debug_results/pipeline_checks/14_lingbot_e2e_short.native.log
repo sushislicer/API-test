@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/opt/conda/envs/RoboTwin2/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/opt/conda/envs/RoboTwin2/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/mnt/ckp/lingbot/lingbot-va/wan_va/wan_va_server.py", line 743, in <module>
+    main()
+  File "/mnt/ckp/lingbot/lingbot-va/wan_va/wan_va_server.py", line 737, in main
+    run(args)
+  File "/mnt/ckp/lingbot/lingbot-va/wan_va/wan_va_server.py", line 692, in run
+    init_distributed(world_size, local_rank, rank)
+  File "/mnt/ckp/lingbot/lingbot-va/wan_va/distributed/util.py", line 27, in init_distributed
+    dist.init_process_group(backend="nccl",
+  File "/opt/conda/envs/RoboTwin2/lib/python3.10/site-packages/torch/distributed/c10d_logger.py", line 81, in wrapper
+    return func(*args, **kwargs)
+  File "/opt/conda/envs/RoboTwin2/lib/python3.10/site-packages/torch/distributed/c10d_logger.py", line 95, in wrapper
+    func_return = func(*args, **kwargs)
+  File "/opt/conda/envs/RoboTwin2/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 1762, in init_process_group
+    store, rank, world_size = next(rendezvous_iterator)
+  File "/opt/conda/envs/RoboTwin2/lib/python3.10/site-packages/torch/distributed/rendezvous.py", line 274, in _env_rendezvous_handler
+    master_addr = _get_env_or_raise("MASTER_ADDR")
+  File "/opt/conda/envs/RoboTwin2/lib/python3.10/site-packages/torch/distributed/rendezvous.py", line 252, in _get_env_or_raise
+    raise _env_error(env_var)
+ValueError: Error initializing torch.distributed using env:// rendezvous: environment variable MASTER_ADDR expected, but not set

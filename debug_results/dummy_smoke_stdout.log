@@ -1,0 +1,2885 @@
+{
+  "benchmark": "libero",
+  "task": "libero_spatial",
+  "episodes": 1,
+  "success_rate": 0.0,
+  "avg_return": -1.2532,
+  "avg_episode_length": 25.0,
+  "avg_prediction_error": null,
+  "metrics": {
+    "episodes_completed": 1,
+    "prediction_enabled": false,
+    "action_diagnostics_available": true,
+    "action_dim_set": [
+      7
+    ],
+    "action_repeat_rate": 0.0,
+    "nonfinite_action_rate": 0.0,
+    "avg_action_l2_norm": 0.55192967,
+    "min_action_l2_norm": 0.01541525,
+    "max_action_l2_norm": 1.01488916,
+    "action_collapse_suspected": false
+  },
+  "episode_summaries": [
+    {
+      "episode_index": 0,
+      "task": "libero_spatial",
+      "steps": 25,
+      "episode_return": -1.2532,
+      "success": false,
+      "avg_prediction_error": null,
+      "records": [
+        {
+          "step_index": 0,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-0.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 0,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.1,
+              -0.1,
+              -0.1,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.1,
+              -0.1,
+              -0.1
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 1
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-1.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.9,
+                0.9,
+                0.9
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.9,
+                  0.9,
+                  0.9
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 1,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.135,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 2.7,
+              "simulator_name": "dummy-simulator",
+              "step_count": 1
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.01488916,
+            "delta_from_previous_l2": null,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 1,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-1.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.9,
+              0.9,
+              0.9
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.9,
+                0.9,
+                0.9
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 1,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.09,
+              -0.09,
+              -0.09,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.09,
+              -0.09,
+              -0.09
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 2
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-2.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.81,
+                0.81,
+                0.81
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.81,
+                  0.81,
+                  0.81
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 2,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.1215,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 2.43,
+              "simulator_name": "dummy-simulator",
+              "step_count": 2
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.15588457,
+            "delta_from_previous_l2": 1.00014999,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 2,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-2.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.81,
+              0.81,
+              0.81
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.81,
+                0.81,
+                0.81
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 2,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.081,
+              -0.081,
+              -0.081,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.081,
+              -0.081,
+              -0.081
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 3
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-3.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.729,
+                0.729,
+                0.729
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.729,
+                  0.729,
+                  0.729
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 3,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.1094,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 2.187,
+              "simulator_name": "dummy-simulator",
+              "step_count": 3
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00979354,
+            "delta_from_previous_l2": 1.00012149,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 3,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-3.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.729,
+              0.729,
+              0.729
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.729,
+                0.729,
+                0.729
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 3,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0729,
+              -0.0729,
+              -0.0729,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0729,
+              -0.0729,
+              -0.0729
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 4
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-4.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.6561,
+                0.6561,
+                0.6561
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.6561,
+                  0.6561,
+                  0.6561
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 4,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0984,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 1.9683,
+              "simulator_name": "dummy-simulator",
+              "step_count": 4
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.1262665,
+            "delta_from_previous_l2": 1.00009841,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 4,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-4.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.6561,
+              0.6561,
+              0.6561
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.6561,
+                0.6561,
+                0.6561
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 4,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0656,
+              -0.0656,
+              -0.0656,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0656,
+              -0.0656,
+              -0.0656
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 5
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-5.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.5905,
+                0.5905,
+                0.5905
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.5905,
+                  0.5905,
+                  0.5905
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 5,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0886,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 1.7715,
+              "simulator_name": "dummy-simulator",
+              "step_count": 5
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00643434,
+            "delta_from_previous_l2": 1.00007993,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 5,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-5.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.5905,
+              0.5905,
+              0.5905
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.5905,
+                0.5905,
+                0.5905
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 5,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0591,
+              -0.0591,
+              -0.0591,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0591,
+              -0.0591,
+              -0.0591
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 6
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-6.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.5314,
+                0.5314,
+                0.5314
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.5314,
+                  0.5314,
+                  0.5314
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 6,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0797,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 1.5942,
+              "simulator_name": "dummy-simulator",
+              "step_count": 6
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.1023642,
+            "delta_from_previous_l2": 1.00006337,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 6,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-6.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.5314,
+              0.5314,
+              0.5314
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.5314,
+                0.5314,
+                0.5314
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 6,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0531,
+              -0.0531,
+              -0.0531,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0531,
+              -0.0531,
+              -0.0531
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 7
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-7.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.4783,
+                0.4783,
+                0.4783
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.4783,
+                  0.4783,
+                  0.4783
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 7,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0717,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 1.4349,
+              "simulator_name": "dummy-simulator",
+              "step_count": 7
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00422051,
+            "delta_from_previous_l2": 1.000054,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 7,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-7.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.4783,
+              0.4783,
+              0.4783
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.4783,
+                0.4783,
+                0.4783
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 7,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0478,
+              -0.0478,
+              -0.0478,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0478,
+              -0.0478,
+              -0.0478
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 8
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-8.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.4305,
+                0.4305,
+                0.4305
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.4305,
+                  0.4305,
+                  0.4305
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 8,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0646,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 1.2915,
+              "simulator_name": "dummy-simulator",
+              "step_count": 8
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.08279203,
+            "delta_from_previous_l2": 1.00004213,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 8,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-8.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.4305,
+              0.4305,
+              0.4305
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.4305,
+                0.4305,
+                0.4305
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 8,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0431,
+              -0.0431,
+              -0.0431,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0431,
+              -0.0431,
+              -0.0431
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 9
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-9.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.3874,
+                0.3874,
+                0.3874
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.3874,
+                  0.3874,
+                  0.3874
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 9,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0581,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 1.1622,
+              "simulator_name": "dummy-simulator",
+              "step_count": 9
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00278254,
+            "delta_from_previous_l2": 1.00003313,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 9,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-9.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.3874,
+              0.3874,
+              0.3874
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.3874,
+                0.3874,
+                0.3874
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 9,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0387,
+              -0.0387,
+              -0.0387,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0387,
+              -0.0387,
+              -0.0387
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 10
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-10.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.3487,
+                0.3487,
+                0.3487
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.3487,
+                  0.3487,
+                  0.3487
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 10,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0523,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 1.0461,
+              "simulator_name": "dummy-simulator",
+              "step_count": 10
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.06703037,
+            "delta_from_previous_l2": 1.00002904,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 10,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-10.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.3487,
+              0.3487,
+              0.3487
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.3487,
+                0.3487,
+                0.3487
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 10,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0349,
+              -0.0349,
+              -0.0349,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0349,
+              -0.0349,
+              -0.0349
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 11
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-11.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.3138,
+                0.3138,
+                0.3138
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.3138,
+                  0.3138,
+                  0.3138
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 11,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0471,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.9414,
+              "simulator_name": "dummy-simulator",
+              "step_count": 11
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00182535,
+            "delta_from_previous_l2": 1.00002166,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 11,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-11.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.3138,
+              0.3138,
+              0.3138
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.3138,
+                0.3138,
+                0.3138
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 11,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0314,
+              -0.0314,
+              -0.0314,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0314,
+              -0.0314,
+              -0.0314
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 12
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-12.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.2824,
+                0.2824,
+                0.2824
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.2824,
+                  0.2824,
+                  0.2824
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 12,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0424,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.8472,
+              "simulator_name": "dummy-simulator",
+              "step_count": 12
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.0543864,
+            "delta_from_previous_l2": 1.00001837,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 12,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-12.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.2824,
+              0.2824,
+              0.2824
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.2824,
+                0.2824,
+                0.2824
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 12,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0282,
+              -0.0282,
+              -0.0282,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0282,
+              -0.0282,
+              -0.0282
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 13
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-13.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.2542,
+                0.2542,
+                0.2542
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.2542,
+                  0.2542,
+                  0.2542
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 13,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0381,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.7626,
+              "simulator_name": "dummy-simulator",
+              "step_count": 13
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00119215,
+            "delta_from_previous_l2": 1.00001536,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 13,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-13.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.2542,
+              0.2542,
+              0.2542
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.2542,
+                0.2542,
+                0.2542
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 13,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0254,
+              -0.0254,
+              -0.0254,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0254,
+              -0.0254,
+              -0.0254
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 14
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-14.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.2288,
+                0.2288,
+                0.2288
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.2288,
+                  0.2288,
+                  0.2288
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 14,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0343,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.6864,
+              "simulator_name": "dummy-simulator",
+              "step_count": 14
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.04399409,
+            "delta_from_previous_l2": 1.00001176,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 14,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-14.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.2288,
+              0.2288,
+              0.2288
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.2288,
+                0.2288,
+                0.2288
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 14,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0229,
+              -0.0229,
+              -0.0229,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0229,
+              -0.0229,
+              -0.0229
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 15
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-15.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.2059,
+                0.2059,
+                0.2059
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.2059,
+                  0.2059,
+                  0.2059
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 15,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0309,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.6177,
+              "simulator_name": "dummy-simulator",
+              "step_count": 15
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00078631,
+            "delta_from_previous_l2": 1.00000937,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 15,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-15.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.2059,
+              0.2059,
+              0.2059
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.2059,
+                0.2059,
+                0.2059
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 15,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0206,
+              -0.0206,
+              -0.0206,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0206,
+              -0.0206,
+              -0.0206
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 16
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-16.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.1853,
+                0.1853,
+                0.1853
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.1853,
+                  0.1853,
+                  0.1853
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 16,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0278,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.5559,
+              "simulator_name": "dummy-simulator",
+              "step_count": 16
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.03568025,
+            "delta_from_previous_l2": 1.00000793,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 16,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-16.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.1853,
+              0.1853,
+              0.1853
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.1853,
+                0.1853,
+                0.1853
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 16,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0185,
+              -0.0185,
+              -0.0185,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0185,
+              -0.0185,
+              -0.0185
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 17
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-17.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.1668,
+                0.1668,
+                0.1668
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.1668,
+                  0.1668,
+                  0.1668
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 17,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.025,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.5004,
+              "simulator_name": "dummy-simulator",
+              "step_count": 17
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00051324,
+            "delta_from_previous_l2": 1.00000661,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 17,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-17.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.1668,
+              0.1668,
+              0.1668
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.1668,
+                0.1668,
+                0.1668
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 17,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0167,
+              -0.0167,
+              -0.0167,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0167,
+              -0.0167,
+              -0.0167
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 18
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-18.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.1501,
+                0.1501,
+                0.1501
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.1501,
+                  0.1501,
+                  0.1501
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 18,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0225,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.4503,
+              "simulator_name": "dummy-simulator",
+              "step_count": 18
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.02892525,
+            "delta_from_previous_l2": 1.00000486,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 18,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-18.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.1501,
+              0.1501,
+              0.1501
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.1501,
+                0.1501,
+                0.1501
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 18,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.015,
+              -0.015,
+              -0.015,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.015,
+              -0.015,
+              -0.015
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 19
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-19.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.1351,
+                0.1351,
+                0.1351
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.1351,
+                  0.1351,
+                  0.1351
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 19,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0203,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.4053,
+              "simulator_name": "dummy-simulator",
+              "step_count": 19
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00033744,
+            "delta_from_previous_l2": 1.00000433,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 19,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-19.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.1351,
+              0.1351,
+              0.1351
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.1351,
+                0.1351,
+                0.1351
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 19,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0135,
+              -0.0135,
+              -0.0135,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0135,
+              -0.0135,
+              -0.0135
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 20
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-20.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.1216,
+                0.1216,
+                0.1216
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.1216,
+                  0.1216,
+                  0.1216
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 20,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0182,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.3648,
+              "simulator_name": "dummy-simulator",
+              "step_count": 20
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.02338269,
+            "delta_from_previous_l2": 1.00000337,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 20,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-20.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.1216,
+              0.1216,
+              0.1216
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.1216,
+                0.1216,
+                0.1216
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 20,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0122,
+              -0.0122,
+              -0.0122,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0122,
+              -0.0122,
+              -0.0122
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 21
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-21.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.1094,
+                0.1094,
+                0.1094
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.1094,
+                  0.1094,
+                  0.1094
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 21,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0164,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.3282,
+              "simulator_name": "dummy-simulator",
+              "step_count": 21
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.00022324,
+            "delta_from_previous_l2": 1.00000253,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 21,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-21.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.1094,
+              0.1094,
+              0.1094
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.1094,
+                0.1094,
+                0.1094
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 21,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0109,
+              -0.0109,
+              -0.0109,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0109,
+              -0.0109,
+              -0.0109
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 22
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-22.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.0985,
+                0.0985,
+                0.0985
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.0985,
+                  0.0985,
+                  0.0985
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 22,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0148,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.2955,
+              "simulator_name": "dummy-simulator",
+              "step_count": 22
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.01887935,
+            "delta_from_previous_l2": 1.00000253,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 22,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-22.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.0985,
+              0.0985,
+              0.0985
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.0985,
+                0.0985,
+                0.0985
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 22,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0099,
+              -0.0099,
+              -0.0099,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.0099,
+              -0.0099,
+              -0.0099
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 23
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-23.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.0886,
+                0.0886,
+                0.0886
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.0886,
+                  0.0886,
+                  0.0886
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 23,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0133,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.2658,
+              "simulator_name": "dummy-simulator",
+              "step_count": 23
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.000147,
+            "delta_from_previous_l2": 1.0000015,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 23,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-23.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.0886,
+              0.0886,
+              0.0886
+            ],
+            "gripper": 1.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.0886,
+                0.0886,
+                0.0886
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 23,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.0089,
+              -0.0089,
+              -0.0089,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "translation": [
+              -0.0089,
+              -0.0089,
+              -0.0089
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 0.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 24
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-24.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.0797,
+                0.0797,
+                0.0797
+              ],
+              "gripper": 0.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.0797,
+                  0.0797,
+                  0.0797
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 24,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.012,
+            "done": false,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.2391,
+              "simulator_name": "dummy-simulator",
+              "step_count": 24
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 0.01541525,
+            "delta_from_previous_l2": 1.0000015,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        },
+        {
+          "step_index": 24,
+          "observation": {
+            "rgb": "sim://dummy-simulator/libero_spatial/step-24.png",
+            "depth": null,
+            "images": {},
+            "depth_images": {},
+            "proprio": [
+              0.0797,
+              0.0797,
+              0.0797
+            ],
+            "gripper": 0.0,
+            "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+            "objects": {
+              "goal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "state": {
+              "position": [
+                0.0797,
+                0.0797,
+                0.0797
+              ]
+            },
+            "metadata": {
+              "simulator_name": "dummy-simulator",
+              "step_count": 24,
+              "task": "libero_spatial"
+            }
+          },
+          "action": {
+            "type": "delta_ee_pose",
+            "action_type": "delta_ee_pose",
+            "vector": [
+              -0.008,
+              -0.008,
+              -0.008,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "translation": [
+              -0.008,
+              -0.008,
+              -0.008
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gripper": 1.0,
+            "metadata": {
+              "model_name": "dummy-model",
+              "policy_step": 25
+            }
+          },
+          "predicted_observation": null,
+          "sim_result": {
+            "observation": {
+              "rgb": "sim://dummy-simulator/libero_spatial/step-25.png",
+              "depth": null,
+              "images": {},
+              "depth_images": {},
+              "proprio": [
+                0.0717,
+                0.0717,
+                0.0717
+              ],
+              "gripper": 1.0,
+              "language_instruction": "Move the end effector toward the target pose while respecting the task constraints.",
+              "objects": {
+                "goal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "state": {
+                "position": [
+                  0.0717,
+                  0.0717,
+                  0.0717
+                ]
+              },
+              "metadata": {
+                "simulator_name": "dummy-simulator",
+                "step_count": 25,
+                "task": "libero_spatial"
+              }
+            },
+            "reward": -0.0108,
+            "done": true,
+            "success": false,
+            "info": {
+              "distance_to_goal_l1": 0.2151,
+              "simulator_name": "dummy-simulator",
+              "step_count": 25
+            }
+          },
+          "prediction_error": null,
+          "action_diagnostics": {
+            "dim": 7,
+            "l2_norm": 1.000096,
+            "delta_from_previous_l2": 1.00000121,
+            "repeated_previous_action": false,
+            "all_finite": true
+          }
+        }
+      ]
+    }
+  ]
+}

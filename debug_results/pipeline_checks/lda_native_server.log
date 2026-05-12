@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/mnt/ckp/API-test/models/LDA-1B/deployment/model_server/server_policy.py", line 8, in <module>
+    from deployment.model_server.tools.websocket_policy_server import WebsocketPolicyServer
+ModuleNotFoundError: No module named 'deployment'
+
+ERROR conda.cli.main_run:execute(127): `conda run bash -lc cd "/mnt/ckp/API-test/models/LDA-1B" && python deployment/model_server/server_policy.py --ckpt_path "/mnt/ckp/LDA/results/Robotwin/run30/checkpoints/steps_150000_pytorch_model.pt" --port 10093 --use_bf16` failed. (See above for error)

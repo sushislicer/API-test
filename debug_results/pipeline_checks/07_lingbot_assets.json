@@ -1,0 +1,22 @@
+{
+  "check": "lingbot_assets",
+  "status": "passed",
+  "artifacts": {
+    "repo": "/mnt/ckp/lingbot/lingbot-va",
+    "posttrain_checkpoint": "/mnt/ckp/API-test/checkpoints/lingbot-va-posttrain-robotwin",
+    "base_checkpoint": "/mnt/ckp/API-test/checkpoints/lingbot-va-base",
+    "posttrain_transformer_config": "/mnt/ckp/API-test/checkpoints/lingbot-va-posttrain-robotwin/transformer/config.json",
+    "base_transformer_config": "/mnt/ckp/API-test/checkpoints/lingbot-va-base/transformer/config.json"
+  },
+  "exists": {
+    "repo": true,
+    "posttrain_checkpoint": true,
+    "base_checkpoint": true,
+    "posttrain_transformer_config": true,
+    "base_transformer_config": true
+  },
+  "metadata": {
+    "posttrain_attn_mode": "torch",
+    "base_attn_mode": "flex"
+  }
+}

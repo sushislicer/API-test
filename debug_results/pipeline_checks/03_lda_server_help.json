@@ -1,0 +1,7 @@
+{
+  "check": "lda_server_help",
+  "status": "passed",
+  "workdir": "/mnt/ckp/LDA",
+  "command": "python -m deployment.model_server.server_policy --help",
+  "log": "/mnt/ckp/API-test/debug_results/pipeline_checks/03_lda_server_help.log"
+}

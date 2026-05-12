@@ -1,0 +1,73 @@
+{
+  "ok": false,
+  "generated_at": "2026-05-07T01:21:17.601005+00:00",
+  "benchmark": "robotwin",
+  "task": "robotwin_place_empty_cup",
+  "model_adapter": "lda-1b",
+  "simulator_adapter": "robotwin",
+  "issues": [
+    {
+      "severity": "error",
+      "message": "Model endpoint health check failed: RuntimeError: Could not reach grpc://127.0.0.1:50051/health: [Errno 111] Connection refused",
+      "hint": "",
+      "path": "model_endpoint"
+    }
+  ],
+  "contract": {
+    "model_metadata_keys": [
+      "action_layout",
+      "action_type",
+      "allow_normalized_actions",
+      "checkpoint_path",
+      "expected_action_dim",
+      "expected_image_count",
+      "expected_state_dim",
+      "image_keys",
+      "payload_mode",
+      "profile",
+      "repo_path",
+      "require_state",
+      "state_keys",
+      "unnorm_key"
+    ],
+    "sim_metadata_keys": [
+      "action_type",
+      "instruction_source",
+      "repo_path",
+      "strict_action_dim",
+      "task_config",
+      "task_name"
+    ],
+    "sim_action_type": "qpos",
+    "sim_action_dim": 16,
+    "model_action_type": "qpos",
+    "model_expected_action_dim": 16,
+    "model_projected_action_dim": null,
+    "normalization_stats_dim": 16,
+    "image_keys": [
+      "observation.head_camera.rgb",
+      "observation.left_camera.rgb",
+      "observation.right_camera.rgb"
+    ],
+    "expected_image_count": 3,
+    "state_keys": [
+      "joint_action.vector"
+    ],
+    "state_transform": "none",
+    "expected_state_dim": 16,
+    "likely_robotwin_state_dim": 16
+  },
+  "checks": {
+    "task_spec_roundtrip": true,
+    "action_roundtrip_dim": 7,
+    "observation_roundtrip_images": [
+      "dummy"
+    ],
+    "model_endpoint_normalized": "http://127.0.0.1:50051",
+    "sim_endpoint_normalized": "http://127.0.0.1:50052",
+    "sim_health": {
+      "adapter": "robotwin",
+      "status": "ok"
+    }
+  }
+}

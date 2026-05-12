@@ -1,0 +1,58 @@
+{
+  "ok": false,
+  "generated_at": "2026-05-07T01:17:05.040502+00:00",
+  "benchmark": "robotwin",
+  "task": "robotwin_place_empty_cup",
+  "model_adapter": "lingbot-va",
+  "simulator_adapter": "robotwin",
+  "issues": [
+    {
+      "severity": "error",
+      "message": "Model action_type 'ee' does not match RoboTwin simulator action_type 'qpos'",
+      "hint": "Use qpos for RoboTwin 16D joint actions unless you have explicitly configured an ee controller path.",
+      "path": "metadata.models"
+    },
+    {
+      "severity": "warning",
+      "message": "Model expected_action_dim is not set",
+      "hint": "Set expected_action_dim/action_dim so oversized LDA chunks cannot silently reach RoboTwin.",
+      "path": "metadata.models"
+    }
+  ],
+  "contract": {
+    "model_metadata_keys": [
+      "action_type",
+      "env_type",
+      "host",
+      "port",
+      "repo_path"
+    ],
+    "sim_metadata_keys": [
+      "action_type",
+      "instruction_source",
+      "repo_path",
+      "strict_action_dim",
+      "task_config",
+      "task_name"
+    ],
+    "sim_action_type": "qpos",
+    "sim_action_dim": 16,
+    "model_action_type": "ee",
+    "model_expected_action_dim": null,
+    "model_projected_action_dim": null,
+    "normalization_stats_dim": null,
+    "image_keys": [],
+    "expected_image_count": null,
+    "state_keys": [],
+    "state_transform": "none",
+    "expected_state_dim": null,
+    "likely_robotwin_state_dim": 16
+  },
+  "checks": {
+    "task_spec_roundtrip": true,
+    "action_roundtrip_dim": 7,
+    "observation_roundtrip_images": [
+      "dummy"
+    ]
+  }
+}

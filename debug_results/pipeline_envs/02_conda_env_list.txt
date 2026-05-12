@@ -1,0 +1,11 @@
+
+# conda environments:
+#
+                       /mnt/ckp/envs/LDA
+                       /mnt/ckp/envs/RoboTwin2
+base                 * /opt/conda
+LDA                    /opt/conda/envs/LDA
+RoboTwin               /opt/conda/envs/RoboTwin
+RoboTwin2              /opt/conda/envs/RoboTwin2
+RoboTwin3              /opt/conda/envs/RoboTwin3
+

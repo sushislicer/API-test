@@ -1,0 +1,8 @@
+{
+  "check": "create_api_lingbot_localprefix",
+  "returncode": 1,
+  "env_exists": false,
+  "python_exists": false,
+  "log": "/mnt/ckp/API-test/debug_results/pipeline_envs/50_create_api_lingbot_localprefix.log",
+  "status": "failed"
+}

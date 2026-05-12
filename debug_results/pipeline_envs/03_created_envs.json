@@ -1,0 +1,9 @@
+{
+  "check": "created_envs",
+  "status": "partial",
+  "envs": {
+    "api-lda-1b": true,
+    "api-robotwin": false,
+    "api-lingbot-va": false
+  }
+}

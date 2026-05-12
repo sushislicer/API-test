@@ -1,0 +1,17 @@
+{
+  "check": "lingbot_e2e_short",
+  "status": "failed",
+  "steps": [
+    {
+      "step": "sim_health",
+      "ok": true,
+      "detail": "{\"adapter\":\"robotwin\",\"status\":\"ok\"}"
+    },
+    {
+      "step": "native_started",
+      "ok": false,
+      "detail": "returncode=1"
+    }
+  ],
+  "error": "lingbot native server failed"
+}

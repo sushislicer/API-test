@@ -1,0 +1,18 @@
+{
+  "check": "lda_assets",
+  "status": "passed",
+  "artifacts": {
+    "checkpoint": "/mnt/ckp/LDA/results/Robotwin/run30/checkpoints/steps_150000_pytorch_model.pt",
+    "config": "/mnt/ckp/LDA/results/Robotwin/run30/config.yaml",
+    "dataset_statistics": "/mnt/ckp/LDA/results/Robotwin/run30/dataset_statistics.json",
+    "qwen_base_vlm": "/mnt/ckp/models/Qwen3-VL-4B",
+    "dino_backbone": "/mnt/ckp/models/dinov3_models/dinov3-vit7b16-pretrain-lvd1689m"
+  },
+  "exists": {
+    "checkpoint": true,
+    "config": true,
+    "dataset_statistics": true,
+    "qwen_base_vlm": true,
+    "dino_backbone": true
+  }
+}

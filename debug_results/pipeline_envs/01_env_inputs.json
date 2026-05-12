@@ -1,0 +1,8 @@
+{
+  "check": "env_inputs",
+  "status": "passed",
+  "lda_repo": "/mnt/ckp/API-test/models/LDA-1B",
+  "robotwin_repo": "/mnt/ckp/API-test/simulators/RoboTwin",
+  "lingbot_repo_recommended": "/mnt/ckp/lingbot/lingbot-va",
+  "lingbot_repo_in_api_test_is_empty": true
+}

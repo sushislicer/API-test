@@ -1,0 +1,13 @@
+usage: wan_va_server.py [-h] [--config-name CONFIG_NAME] [--port PORT]
+                        [--save_root SAVE_ROOT]
+                        [--checkpoint_path CHECKPOINT_PATH]
+
+options:
+  -h, --help            show this help message and exit
+  --config-name CONFIG_NAME
+                        config name.
+  --port PORT           (start) port
+  --save_root SAVE_ROOT
+                        save root
+  --checkpoint_path CHECKPOINT_PATH
+                        Direct path to a specific checkpoint folder

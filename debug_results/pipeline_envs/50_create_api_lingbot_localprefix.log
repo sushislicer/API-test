@@ -1,0 +1,499 @@
+Channels:
+ - conda-forge
+Platform: linux-64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+    current version: 25.5.0
+    latest version: 26.3.2
+
+Please update conda by running
+
+    $ conda update -n base -c conda-forge conda
+
+
+
+## Package Plan ##
+
+  environment location: /mnt/ckp/API-test/.conda-envs/api-lingbot-va
+
+  added / updated specs:
+    - pip
+    - python=3.10.16
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    _openmp_mutex-4.5          |           20_gnu          28 KB  conda-forge
+    bzip2-1.0.8                |       hda65f42_9         254 KB  conda-forge
+    ca-certificates-2026.4.22  |       hbd8a1cb_0         128 KB  conda-forge
+    ld_impl_linux-64-2.45.1    |default_hbd61a6d_102         711 KB  conda-forge
+    libexpat-2.8.0             |       hecca717_0          75 KB  conda-forge
+    libffi-3.5.2               |       h3435931_0          57 KB  conda-forge
+    libgcc-15.2.0              |      he0feb66_18        1017 KB  conda-forge
+    libgcc-ng-15.2.0           |      h69a702a_18          27 KB  conda-forge
+    libgomp-15.2.0             |      he0feb66_18         589 KB  conda-forge
+    liblzma-5.8.3              |       hb03c661_0         111 KB  conda-forge
+    libnsl-2.0.1               |       hb9d3cd8_1          33 KB  conda-forge
+    libsqlite-3.53.1           |       h0c1763c_0         933 KB  conda-forge
+    libuuid-2.42               |       h5347b49_0          39 KB  conda-forge
+    libxcrypt-4.4.36           |       hd590300_1          98 KB  conda-forge
+    libzlib-1.3.2              |       h25fd6f3_2          62 KB  conda-forge
+    ncurses-6.6                |       hdb14827_0         897 KB  conda-forge
+    openssl-3.6.2              |       h35e630c_0         3.0 MB  conda-forge
+    packaging-26.2             |     pyhc364b38_0          89 KB  conda-forge
+    pip-26.1.1                 |     pyh8b19718_0         1.1 MB  conda-forge
+    python-3.10.16             |habfa6aa_3_cpython        23.9 MB  conda-forge
+    readline-8.3               |       h853b02a_0         337 KB  conda-forge
+    setuptools-82.0.1          |     pyh332efcf_0         625 KB  conda-forge
+    tk-8.6.13                  |noxft_h366c992_103         3.1 MB  conda-forge
+    tzdata-2025c               |       hc9c84f9_1         116 KB  conda-forge
+    wheel-0.47.0               |     pyhd8ed1ab_0          33 KB  conda-forge
+    zstd-1.5.7                 |       hb78ec9c_6         587 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:        37.9 MB
+
+The following NEW packages will be INSTALLED:
+
+  _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-20_gnu 
+  bzip2              conda-forge/linux-64::bzip2-1.0.8-hda65f42_9 
+  ca-certificates    conda-forge/noarch::ca-certificates-2026.4.22-hbd8a1cb_0 
+  ld_impl_linux-64   conda-forge/linux-64::ld_impl_linux-64-2.45.1-default_hbd61a6d_102 
+  libexpat           conda-forge/linux-64::libexpat-2.8.0-hecca717_0 
+  libffi             conda-forge/linux-64::libffi-3.5.2-h3435931_0 
+  libgcc             conda-forge/linux-64::libgcc-15.2.0-he0feb66_18 
+  libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_18 
+  libgomp            conda-forge/linux-64::libgomp-15.2.0-he0feb66_18 
+  liblzma            conda-forge/linux-64::liblzma-5.8.3-hb03c661_0 
+  libnsl             conda-forge/linux-64::libnsl-2.0.1-hb9d3cd8_1 
+  libsqlite          conda-forge/linux-64::libsqlite-3.53.1-h0c1763c_0 
+  libuuid            conda-forge/linux-64::libuuid-2.42-h5347b49_0 
+  libxcrypt          conda-forge/linux-64::libxcrypt-4.4.36-hd590300_1 
+  libzlib            conda-forge/linux-64::libzlib-1.3.2-h25fd6f3_2 
+  ncurses            conda-forge/linux-64::ncurses-6.6-hdb14827_0 
+  openssl            conda-forge/linux-64::openssl-3.6.2-h35e630c_0 
+  packaging          conda-forge/noarch::packaging-26.2-pyhc364b38_0 
+  pip                conda-forge/noarch::pip-26.1.1-pyh8b19718_0 
+  python             conda-forge/linux-64::python-3.10.16-habfa6aa_3_cpython 
+  readline           conda-forge/linux-64::readline-8.3-h853b02a_0 
+  setuptools         conda-forge/noarch::setuptools-82.0.1-pyh332efcf_0 
+  tk                 conda-forge/linux-64::tk-8.6.13-noxft_h366c992_103 
+  tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1 
+  wheel              conda-forge/noarch::wheel-0.47.0-pyhd8ed1ab_0 
+  zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6 
+
+
+
+Downloading and Extracting Packages: ...working...python-3.10.16       | 23.9 MB   |            |   0% 
+tk-8.6.13            | 3.1 MB    |            |   0% [A
+
+openssl-3.6.2        | 3.0 MB    |            |   0% [A[A
+
+
+pip-26.1.1           | 1.1 MB    |            |   0% [A[A[A
+
+
+
+libgcc-15.2.0        | 1017 KB   |            |   0% [A[A[A[A
+
+
+
+
+libsqlite-3.53.1     | 933 KB    |            |   0% [A[A[A[A[A
+
+
+
+
+
+ncurses-6.6          | 897 KB    |            |   0% [A[A[A[A[A[A
+
+
+
+
+
+
+ld_impl_linux-64-2.4 | 711 KB    |            |   0% [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+setuptools-82.0.1    | 625 KB    |            |   0% [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+libgomp-15.2.0       | 589 KB    |            |   0% [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+zstd-1.5.7           | 587 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+readline-8.3         | 337 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+bzip2-1.0.8          | 254 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+ca-certificates-2026 | 128 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+tzdata-2025c         | 116 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+liblzma-5.8.3        | 111 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+libxcrypt-4.4.36     | 98 KB     |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+packaging-26.2       | 89 KB     |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+libexpat-2.8.0       | 75 KB     |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ... (more hidden) ...[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[Apython-3.10.16       | 23.9 MB   |            |   0% python-3.10.16       | 23.9 MB   |            |   0% python-3.10.16       | 23.9 MB   |            |   1% python-3.10.16       | 23.9 MB   | 1          |   1% python-3.10.16       | 23.9 MB   | 1          |   1% python-3.10.16       | 23.9 MB   | 2          |   3% python-3.10.16       | 23.9 MB   | 3          |   4% python-3.10.16       | 23.9 MB   | 8          |   8% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A                                                     
+                                                     [A
+
+                                                     [A[A
+
+
+                                                     [A[A[A
+
+
+
+                                                     [A[A[A[A
+
+
+
+
+                                                     [A[A[A[A[A
+
+
+
+
+
+                                                     [A[A[A[A[A[A
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+[A
+
+[A[A
+
+
+[A[A[A
+
+
+
+[A[A[A[A
+
+
+
+
+[A[A[A[A[A
+
+
+
+
+
+[A[A[A[A[A[A
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/pip-26.1.1-pyh8b19718_0.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/pip-26.1.1-pyh8b19718_0.conda'
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/pip-26.1.1-pyh8b19718_0.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/pip-26.1.1-pyh8b19718_0.conda'
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/libgcc-15.2.0-he0feb66_18.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/libgcc-15.2.0-he0feb66_18.conda'
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/tk-8.6.13-noxft_h366c992_103.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/tk-8.6.13-noxft_h366c992_103.conda'
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/openssl-3.6.2-h35e630c_0.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/openssl-3.6.2-h35e630c_0.conda'
+
+ done

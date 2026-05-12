@@ -1,0 +1,7 @@
+{
+  "check": "robotwin_sim_health",
+  "status": "passed",
+  "port": 50152,
+  "server_log": "/mnt/ckp/API-test/debug_results/pipeline_checks/10_robotwin_sim_health.log",
+  "client_log": "/mnt/ckp/API-test/debug_results/pipeline_checks/10_robotwin_sim_health.client.log"
+}

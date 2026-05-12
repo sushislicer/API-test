@@ -1,0 +1,8 @@
+{
+  "check": "create_api_robotwin_localprefix",
+  "returncode": 0,
+  "env_exists": true,
+  "python_exists": true,
+  "log": "/mnt/ckp/API-test/debug_results/pipeline_envs/40_create_api_robotwin_localprefix.log",
+  "status": "passed"
+}

@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "/mnt/ckp/lingbot/lingbot-va/wan_va/wan_va_server.py", line 8, in <module>
+    from diffusers.video_processor import VideoProcessor
+ModuleNotFoundError: No module named 'diffusers'
+E0507 09:21:20.033000 1971237 site-packages/torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 1971384) of binary: /opt/conda/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 896, in <module>
+    main()
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 892, in main
+    run(args)
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/run.py", line 883, in run
+    elastic_launch(
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 139, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 270, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+wan_va/wan_va_server.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-05-07_09:21:20
+  host      : aibox-rc98bc79b801-d94dd44fc-ptq88
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 1971384)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+
+ERROR conda.cli.main_run:execute(127): `conda run bash -lc cd "/mnt/ckp/lingbot/lingbot-va" && python -m torch.distributed.run --nproc_per_node 1 --master_port 29061 wan_va/wan_va_server.py --config-name robotwin --port 29056 --checkpoint_path "/mnt/ckp/API-test/checkpoints/lingbot-va-posttrain-robotwin" --save_root "/mnt/ckp/API-test/debug_results/pipeline_checks/lingbot_native_outputs"` failed. (See above for error)

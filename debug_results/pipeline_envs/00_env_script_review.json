@@ -1,0 +1,12 @@
+{
+  "check": "env_script_review",
+  "status": "passed",
+  "notes": [
+    "Scripts create named conda envs via conda create -n <name> python=<version> pip",
+    "Scripts install repo-specific deps and then link API checkout via eval_system_api.pth",
+    "Scripts default to repo paths inside API-test when present",
+    "LingBot env script can install README package set plus optional post-training extras",
+    "LDA env script installs requirements.txt plus flash-attn and editable repo",
+    "RoboTwin env script can run official installer or manual requirements fallback"
+  ]
+}

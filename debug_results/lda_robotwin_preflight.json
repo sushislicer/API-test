@@ -1,0 +1,64 @@
+{
+  "ok": true,
+  "generated_at": "2026-05-07T00:17:08.216720+00:00",
+  "benchmark": "robotwin",
+  "task": "robotwin_place_empty_cup",
+  "model_adapter": "lda-1b",
+  "simulator_adapter": "robotwin",
+  "issues": [
+    {
+      "severity": "warning",
+      "message": "LDA usually returns normalized_actions but no action normalization stats were found",
+      "hint": "Set checkpoint_path/policy_ckpt_path or norm_stats_path/dataset_statistics_path with unnorm_key.",
+      "path": "metadata.models.lda-1b"
+    }
+  ],
+  "contract": {
+    "model_metadata_keys": [
+      "action_layout",
+      "action_type",
+      "allow_normalized_actions",
+      "expected_action_dim",
+      "expected_image_count",
+      "expected_state_dim",
+      "image_keys",
+      "payload_mode",
+      "profile",
+      "require_state",
+      "state_keys"
+    ],
+    "sim_metadata_keys": [
+      "action_type",
+      "instruction_source",
+      "repo_path",
+      "strict_action_dim",
+      "task_config",
+      "task_name"
+    ],
+    "sim_action_type": "qpos",
+    "sim_action_dim": 16,
+    "model_action_type": "qpos",
+    "model_expected_action_dim": 16,
+    "model_projected_action_dim": null,
+    "normalization_stats_dim": null,
+    "image_keys": [
+      "observation.head_camera.rgb",
+      "observation.left_camera.rgb",
+      "observation.right_camera.rgb"
+    ],
+    "expected_image_count": 3,
+    "state_keys": [
+      "joint_action.vector"
+    ],
+    "state_transform": "none",
+    "expected_state_dim": 16,
+    "likely_robotwin_state_dim": 16
+  },
+  "checks": {
+    "task_spec_roundtrip": true,
+    "action_roundtrip_dim": 7,
+    "observation_roundtrip_images": [
+      "dummy"
+    ]
+  }
+}

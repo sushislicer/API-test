@@ -1,0 +1,7 @@
+{
+  "check": "lingbot_server_help",
+  "status": "passed",
+  "workdir": "/mnt/ckp/lingbot/lingbot-va",
+  "command": "python -m wan_va.wan_va_server --help",
+  "log": "/mnt/ckp/API-test/debug_results/pipeline_checks/09_lingbot_server_help.log"
+}
