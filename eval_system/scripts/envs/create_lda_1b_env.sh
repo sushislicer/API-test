@@ -11,6 +11,7 @@ LDA_REPO="${LDA_1B_REPO:-$(default_repo_path "${API_ROOT}/models/LDA-1B")}"
 INSTALL_REQUIREMENTS=1
 INSTALL_FLASH_ATTN=1
 INSTALL_EDITABLE=1
+RUN_VALIDATION=1
 
 usage() {
   cat <<EOF
@@ -25,6 +26,7 @@ Options:
   --skip-requirements    Do not install requirements.txt.
   --skip-flash-attn      Do not install flash-attn separately.
   --no-editable          Skip pip install -e on the LDA-1B checkout.
+  --skip-validation      Do not run import/native-server help checks after install.
   -h, --help             Show this help.
 
 Default mode follows the LDA-1B README installation:
@@ -61,6 +63,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --no-editable)
       INSTALL_EDITABLE=0
+      shift
+      ;;
+    --skip-validation)
+      RUN_VALIDATION=0
       shift
       ;;
     -h|--help)
@@ -102,6 +108,15 @@ else
 fi
 
 link_api_package "${ENV_NAME}"
+
+if [[ "${RUN_VALIDATION}" -eq 1 ]]; then
+  info "validating LDA-1B environment imports"
+  run_in_env "${ENV_NAME}" python -c 'import torch; import eval_system; print("torch", torch.__version__)'
+  info "validating LDA-1B native server module import"
+  run_in_env "${ENV_NAME}" bash -lc "cd '${LDA_REPO}' && python -m deployment.model_server.server_policy --help >/dev/null"
+else
+  info "skipping validation"
+fi
 
 info "done. Run with: conda activate $(conda_activate_arg "${ENV_NAME}")"
 info "for this API adapter, set LDA_1B_ROOT=${LDA_REPO} or pass task.metadata.repo_path"
