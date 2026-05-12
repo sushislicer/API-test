@@ -5,7 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/_conda_common.sh"
 
-ENV_NAME="${LDA_1B_ENV_NAME:-env-lda-1b}"
+ENV_NAME="${LDA_1B_ENV_NAME:-${API_CONDA_ENVS_DIR}/api-lda-1b}"
 PYTHON_VERSION="${LDA_1B_PYTHON_VERSION:-3.10}"
 LDA_REPO="${LDA_1B_REPO:-$(default_repo_path "${API_ROOT}/models/LDA-1B")}"
 INSTALL_REQUIREMENTS=1
@@ -19,7 +19,7 @@ Usage: $0 [options]
 Create/update a conda environment for LDA-1B inference.
 
 Options:
-  --env NAME              Conda environment name. Default: ${ENV_NAME}
+  --env ENV               Conda env name or prefix path. Default: ${ENV_NAME}
   --python VERSION       Python version. Default: ${PYTHON_VERSION}
   --repo PATH            Existing LDA-1B checkout. Default: ${LDA_REPO:-<none>}
   --skip-requirements    Do not install requirements.txt.
@@ -74,6 +74,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 assert_repo_dir "LDA-1B" "${LDA_REPO}"
+[[ -f "${LDA_REPO}/deployment/model_server/server_policy.py" ]] || die "LDA-1B repo is missing deployment/model_server/server_policy.py: ${LDA_REPO}"
 
 create_conda_env "${ENV_NAME}" "${PYTHON_VERSION}"
 upgrade_pip "${ENV_NAME}"
@@ -102,6 +103,6 @@ fi
 
 link_api_package "${ENV_NAME}"
 
-info "done. Run with: conda activate ${ENV_NAME}"
+info "done. Run with: conda activate $(conda_activate_arg "${ENV_NAME}")"
 info "for this API adapter, set LDA_1B_ROOT=${LDA_REPO} or pass task.metadata.repo_path"
 info "put LDA checkpoints under ${DOWNLOAD_ROOT}/checkpoints/lda-1b or set DOWNLOAD_ROOT to another disk"

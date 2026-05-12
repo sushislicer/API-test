@@ -5,7 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/_conda_common.sh"
 
-ENV_NAME="${ROBOTWIN_ENV_NAME:-robotwin}"
+ENV_NAME="${ROBOTWIN_ENV_NAME:-${API_CONDA_ENVS_DIR}/api-robotwin}"
 PYTHON_VERSION="${ROBOTWIN_PYTHON_VERSION:-3.10}"
 ROBOTWIN_REPO="${ROBOTWIN_REPO:-$(default_repo_path "${API_ROOT}/simulators/RoboTwin")}"
 INSTALL_MODE="official"
@@ -19,7 +19,7 @@ Usage: $0 [options]
 Create/update a conda environment for RoboTwin 2.0.
 
 Options:
-  --env NAME              Conda environment name. Default: ${ENV_NAME}
+  --env ENV               Conda env name or prefix path. Default: ${ENV_NAME}
   --python VERSION       Python version. Default: ${PYTHON_VERSION}
   --repo PATH            Existing RoboTwin checkout. Default: ${ROBOTWIN_REPO:-<none>}
   --manual               Use pip requirements fallback instead of script/_install.sh.
@@ -73,6 +73,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 assert_repo_dir "RoboTwin" "${ROBOTWIN_REPO}"
+[[ -d "${ROBOTWIN_REPO}/script" ]] || die "RoboTwin repo is missing script/: ${ROBOTWIN_REPO}"
 
 create_conda_env "${ENV_NAME}" "${PYTHON_VERSION}"
 upgrade_pip "${ENV_NAME}"
@@ -108,6 +109,6 @@ fi
 
 link_api_package "${ENV_NAME}"
 
-info "done. Run with: conda activate ${ENV_NAME}"
+info "done. Run with: conda activate $(conda_activate_arg "${ENV_NAME}")"
 info "for this API adapter, set ROBOTWIN_ROOT=${ROBOTWIN_REPO} or pass task.metadata.repo_path"
 info "use ${DOWNLOAD_ROOT}/assets/robotwin for manually cached RoboTwin assets, or set DOWNLOAD_ROOT to another disk"

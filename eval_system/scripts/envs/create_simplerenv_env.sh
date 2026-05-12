@@ -5,7 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/_conda_common.sh"
 
-ENV_NAME="${SIMPLERENV_ENV_NAME:-simpler_env}"
+ENV_NAME="${SIMPLERENV_ENV_NAME:-${API_CONDA_ENVS_DIR}/api-simplerenv}"
 PYTHON_VERSION="${SIMPLERENV_PYTHON_VERSION:-3.10}"
 SIMPLERENV_REPO="${SIMPLERENV_REPO:-$(default_repo_path "${API_ROOT}/../SimplerEnv")}"
 INSTALL_FULL_REQUIREMENTS=0
@@ -17,7 +17,7 @@ Usage: $0 [options]
 Create/update a conda environment for SimplerEnv.
 
 Options:
-  --env NAME              Conda environment name. Default: ${ENV_NAME}
+  --env ENV               Conda env name or prefix path. Default: ${ENV_NAME}
   --python VERSION       Python version. Default: ${PYTHON_VERSION}
   --repo PATH            Existing SimplerEnv checkout. Default: ${SIMPLERENV_REPO:-<none>}
   --full-requirements    Install requirements_full_install.txt if present.
@@ -79,4 +79,4 @@ pip_in_env "${ENV_NAME}" install -e "${SIMPLERENV_REPO}"
 
 link_api_package "${ENV_NAME}"
 
-info "done. Run with: conda activate ${ENV_NAME}"
+info "done. Run with: conda activate $(conda_activate_arg "${ENV_NAME}")"

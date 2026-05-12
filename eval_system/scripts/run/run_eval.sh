@@ -25,7 +25,7 @@ Usage: $0 [options]
 Run the evaluator without Docker.
 
 Options:
-  --env NAME              Conda env to run in. Default: EVAL_ENV or current Python.
+  --env ENV               Conda env name or prefix path. Default: EVAL_ENV or current Python.
   --model-endpoint URL    Default: ${MODEL_ENDPOINT}
   --sim-endpoint URL      Default: ${SIM_ENDPOINT}
   --benchmark NAME        Default: ${BENCHMARK}

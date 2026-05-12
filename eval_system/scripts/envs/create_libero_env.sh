@@ -5,7 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/_conda_common.sh"
 
-ENV_NAME="${LIBERO_ENV_NAME:-libero}"
+ENV_NAME="${LIBERO_ENV_NAME:-${API_CONDA_ENVS_DIR}/api-libero}"
 PYTHON_VERSION="${LIBERO_PYTHON_VERSION:-3.8.13}"
 LIBERO_REPO="${LIBERO_REPO:-$(default_repo_path "${API_ROOT}/simulators/LIBERO")}"
 INSTALL_TORCH=1
@@ -18,7 +18,7 @@ Usage: $0 [options]
 Create/update a conda environment for the official LIBERO simulator.
 
 Options:
-  --env NAME          Conda environment name. Default: ${ENV_NAME}
+  --env ENV           Conda env name or prefix path. Default: ${ENV_NAME}
   --python VERSION   Python version. Default: ${PYTHON_VERSION}
   --repo PATH        Existing LIBERO checkout. Default: ${LIBERO_REPO:-<none>}
   --skip-torch       Do not install the official torch/cu113 wheel set.
@@ -78,4 +78,4 @@ pip_in_env "${ENV_NAME}" install -e "${LIBERO_REPO}"
 
 link_api_package "${ENV_NAME}"
 
-info "done. Run with: conda activate ${ENV_NAME}"
+info "done. Run with: conda activate $(conda_activate_arg "${ENV_NAME}")"

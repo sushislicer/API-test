@@ -17,7 +17,7 @@ Usage: $0 [options]
 Start a simulator API server without Docker.
 
 Options:
-  --env NAME        Conda env to run in. Default: SIM_ENV or current Python.
+  --env ENV         Conda env name or prefix path. Default: SIM_ENV, adapter API env, or current Python.
   --adapter NAME    Simulator adapter. Default: ${ADAPTER}
   --host HOST       Bind host. Default: ${HOST}
   --port PORT       Bind port. Default: ${PORT}
@@ -55,6 +55,20 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ -z "${ENV_NAME}" ]]; then
+  case "${ADAPTER}" in
+    robotwin)
+      ENV_NAME="${API_CONDA_ENVS_DIR}/api-robotwin"
+      ;;
+    libero)
+      ENV_NAME="${API_CONDA_ENVS_DIR}/api-libero"
+      ;;
+    simplerenv)
+      ENV_NAME="${API_CONDA_ENVS_DIR}/api-simplerenv"
+      ;;
+  esac
+fi
 
 run_python "${ENV_NAME}" "${PYTHON_BIN}" -m eval_system.sim_server.server \
   --adapter "${ADAPTER}" \

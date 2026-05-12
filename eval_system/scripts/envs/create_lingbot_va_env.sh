@@ -5,7 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/_conda_common.sh"
 
-ENV_NAME="${LINGBOT_VA_ENV_NAME:-env-lingbot-va}"
+ENV_NAME="${LINGBOT_VA_ENV_NAME:-${API_CONDA_ENVS_DIR}/api-lingbot-va}"
 PYTHON_VERSION="${LINGBOT_VA_PYTHON_VERSION:-3.10.16}"
 LINGBOT_REPO="${LINGBOT_VA_REPO:-$(default_repo_path "${API_ROOT}/models/lingbot-va")}"
 INSTALL_TORCH=1
@@ -40,7 +40,7 @@ Usage: $0 [options]
 Create/update a conda environment for LingBot-VA inference.
 
 Options:
-  --env NAME              Conda environment name. Default: ${ENV_NAME}
+  --env ENV               Conda env name or prefix path. Default: ${ENV_NAME}
   --python VERSION       Python version. Default: ${PYTHON_VERSION}
   --repo PATH            Existing LingBot-VA checkout. Default: ${LINGBOT_REPO:-<none>}
   --torch-index URL      PyTorch wheel index. Default: ${TORCH_INDEX_URL}
@@ -110,6 +110,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 assert_repo_dir "LingBot-VA" "${LINGBOT_REPO}"
+[[ -f "${LINGBOT_REPO}/wan_va/wan_va_server.py" ]] || die "LingBot-VA repo is missing wan_va/wan_va_server.py: ${LINGBOT_REPO}"
 
 create_conda_env "${ENV_NAME}" "${PYTHON_VERSION}"
 upgrade_pip "${ENV_NAME}"
@@ -151,6 +152,6 @@ fi
 
 link_api_package "${ENV_NAME}"
 
-info "done. Run with: conda activate ${ENV_NAME}"
+info "done. Run with: conda activate $(conda_activate_arg "${ENV_NAME}")"
 info "for this API adapter, set LINGBOT_VA_ROOT=${LINGBOT_REPO} or pass task.metadata.repo_path"
 info "put LingBot-VA checkpoints under ${DOWNLOAD_ROOT}/checkpoints/lingbot-va or set DOWNLOAD_ROOT to another disk"

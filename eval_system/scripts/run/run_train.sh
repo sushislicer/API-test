@@ -25,7 +25,7 @@ Usage: $0 [options]
 Prepare or launch model training through the model API. Default is dry-run.
 
 Options:
-  --env NAME              Conda env for this lightweight client. Default: EVAL_ENV or current Python.
+  --env ENV               Conda env name or prefix path. Default: EVAL_ENV or current Python.
   --model-endpoint URL    Default: ${MODEL_ENDPOINT}
   --model NAME            Model adapter name. Default: ${MODEL}
   --benchmark NAME        Simulator/benchmark name. Default: ${BENCHMARK}

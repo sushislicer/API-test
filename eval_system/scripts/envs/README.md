@@ -15,17 +15,36 @@ On the remote A800 machine, point `DOWNLOAD_ROOT` at a larger mounted disk if
 needed. The setup scripts only print this path; they do not download checkpoints
 or assets unless an explicit option such as `--download-assets` is used.
 
-Use separate environments for heavy stacks:
+By default, the scripts create checkout-local conda prefix envs under
+`.conda-envs/`. This keeps the API test setup independent from pre-existing
+remote envs such as `LDA` or `RoboTwin2`.
+
+Create the default API env set sequentially:
+
+```bash
+bash eval_system/scripts/envs/create_api_envs.sh
+```
+
+That creates:
+
+```text
+.conda-envs/api-lingbot-va
+.conda-envs/api-lda-1b
+.conda-envs/api-robotwin
+```
+
+You can also create or repair one env at a time. `--env` accepts either a conda
+name or a prefix path:
 
 ```bash
 # Model repos in this checkout
-bash eval_system/scripts/envs/create_lingbot_va_env.sh --env env-lingbot-va --repo models/lingbot-va
-bash eval_system/scripts/envs/create_lda_1b_env.sh --env env-lda-1b --repo models/LDA-1B
+bash eval_system/scripts/envs/create_lingbot_va_env.sh --env .conda-envs/api-lingbot-va --repo models/lingbot-va
+bash eval_system/scripts/envs/create_lda_1b_env.sh --env .conda-envs/api-lda-1b --repo models/LDA-1B
 
 # Simulator repos
-bash eval_system/scripts/envs/create_robotwin_env.sh --env env-robotwin --repo simulators/RoboTwin
-bash eval_system/scripts/envs/create_libero_env.sh --env env-libero --repo /path/to/LIBERO
-bash eval_system/scripts/envs/create_simplerenv_env.sh --env env-simpler --repo /path/to/SimplerEnv
+bash eval_system/scripts/envs/create_robotwin_env.sh --env .conda-envs/api-robotwin --repo simulators/RoboTwin
+bash eval_system/scripts/envs/create_libero_env.sh --env .conda-envs/api-libero --repo /path/to/LIBERO
+bash eval_system/scripts/envs/create_simplerenv_env.sh --env .conda-envs/api-simplerenv --repo /path/to/SimplerEnv
 ```
 
 Each script links this API checkout into the target environment with a `.pth`
@@ -38,15 +57,15 @@ Default command:
 
 ```bash
 bash eval_system/scripts/envs/create_lingbot_va_env.sh \
-  --env env-lingbot-va \
+  --env .conda-envs/api-lingbot-va \
   --repo models/lingbot-va
 ```
 
 The default install follows the LingBot-VA README inference dependencies:
 
 ```bash
-conda create -n env-lingbot-va python=3.10.16 -y
-conda activate env-lingbot-va
+conda create -p .conda-envs/api-lingbot-va python=3.10.16 -y
+conda activate .conda-envs/api-lingbot-va
 pip install torch==2.9.0 torchvision==0.24.0 torchaudio==2.9.0 --index-url https://download.pytorch.org/whl/cu126
 pip install websockets einops diffusers==0.36.0 transformers==4.55.2 accelerate msgpack opencv-python matplotlib ftfy easydict
 pip install flash-attn --no-build-isolation
@@ -58,25 +77,25 @@ Useful options:
 ```bash
 # Use a different CUDA/PyTorch wheel index
 bash eval_system/scripts/envs/create_lingbot_va_env.sh \
-  --env env-lingbot-va \
+  --env .conda-envs/api-lingbot-va \
   --repo models/lingbot-va \
   --torch-index https://download.pytorch.org/whl/cu126
 
 # Skip torch if the remote machine already has the right GPU build installed
 bash eval_system/scripts/envs/create_lingbot_va_env.sh \
-  --env env-lingbot-va \
+  --env .conda-envs/api-lingbot-va \
   --repo models/lingbot-va \
   --skip-torch
 
 # Install LingBot's requirements.txt exactly instead of the README package list
 bash eval_system/scripts/envs/create_lingbot_va_env.sh \
-  --env env-lingbot-va \
+  --env .conda-envs/api-lingbot-va \
   --repo models/lingbot-va \
   --requirements
 
 # Add the post-training extras from the LingBot README
 bash eval_system/scripts/envs/create_lingbot_va_env.sh \
-  --env env-lingbot-va \
+  --env .conda-envs/api-lingbot-va \
   --repo models/lingbot-va \
   --post-training
 ```
@@ -89,7 +108,7 @@ Run LingBot's native server from the LingBot env, then run this API adapter as a
 client:
 
 ```bash
-conda activate env-lingbot-va
+conda activate .conda-envs/api-lingbot-va
 export API_ROOT=/path/to/API
 export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 cd "${API_ROOT}/models/lingbot-va"
@@ -105,7 +124,7 @@ LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va" \
 LINGBOT_VA_HOST=127.0.0.1 \
 LINGBOT_VA_PORT=29056 \
 ./eval_system/scripts/run/start_model_server.sh \
-  --env env-lingbot-va \
+  --env .conda-envs/api-lingbot-va \
   --adapter lingbot-va \
   --port 50051
 ```
@@ -116,15 +135,15 @@ Default command:
 
 ```bash
 bash eval_system/scripts/envs/create_lda_1b_env.sh \
-  --env env-lda-1b \
+  --env .conda-envs/api-lda-1b \
   --repo models/LDA-1B
 ```
 
 The default install follows the LDA-1B README:
 
 ```bash
-conda create -n env-lda-1b python=3.10 -y
-conda activate env-lda-1b
+conda create -p .conda-envs/api-lda-1b python=3.10 -y
+conda activate .conda-envs/api-lda-1b
 pip install -r models/LDA-1B/requirements.txt
 pip install flash-attn --no-build-isolation
 pip install --no-deps -e models/LDA-1B
@@ -135,13 +154,13 @@ Useful options:
 ```bash
 # Skip requirements when you are repairing an existing env
 bash eval_system/scripts/envs/create_lda_1b_env.sh \
-  --env env-lda-1b \
+  --env .conda-envs/api-lda-1b \
   --repo models/LDA-1B \
   --skip-requirements
 
 # Skip flash-attn if your PyTorch/CUDA build cannot compile it yet
 bash eval_system/scripts/envs/create_lda_1b_env.sh \
-  --env env-lda-1b \
+  --env .conda-envs/api-lda-1b \
   --repo models/LDA-1B \
   --skip-flash-attn
 ```
@@ -151,11 +170,11 @@ checkpoints. Put those on disk following the LDA README, then start the native
 LDA server from the LDA env:
 
 ```bash
-conda activate env-lda-1b
+conda activate .conda-envs/api-lda-1b
 export API_ROOT=/path/to/API
 export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 cd "${API_ROOT}/models/LDA-1B"
-python deployment/model_server/server_policy.py \
+python -m deployment.model_server.server_policy \
   --ckpt_path "${DOWNLOAD_ROOT}/checkpoints/lda-1b/path/to/checkpoint.pt" \
   --port 10093 \
   --use_bf16
@@ -170,7 +189,7 @@ LDA_1B_ROOT="${API_ROOT}/models/LDA-1B" \
 LDA_1B_HOST=127.0.0.1 \
 LDA_1B_PORT=10093 \
 ./eval_system/scripts/run/start_model_server.sh \
-  --env env-lda-1b \
+  --env .conda-envs/api-lda-1b \
   --adapter lda-1b \
   --port 50051
 ```
@@ -219,15 +238,15 @@ Default command:
 
 ```bash
 bash eval_system/scripts/envs/create_robotwin_env.sh \
-  --env env-robotwin \
+  --env .conda-envs/api-robotwin \
   --repo simulators/RoboTwin
 ```
 
 Default mode follows the official RoboTwin installer:
 
 ```bash
-conda create -n env-robotwin python=3.10 -y
-conda activate env-robotwin
+conda create -p .conda-envs/api-robotwin python=3.10 -y
+conda activate .conda-envs/api-robotwin
 cd simulators/RoboTwin
 bash script/_install.sh
 ```
@@ -239,7 +258,7 @@ Manual fallback:
 
 ```bash
 bash eval_system/scripts/envs/create_robotwin_env.sh \
-  --env env-robotwin \
+  --env .conda-envs/api-robotwin \
   --repo simulators/RoboTwin \
   --manual
 ```
@@ -251,7 +270,7 @@ export API_ROOT=/path/to/API
 export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin" \
 ./eval_system/scripts/run/start_sim_server.sh \
-  --env env-robotwin \
+  --env .conda-envs/api-robotwin \
   --adapter robotwin \
   --port 50052
 ```
@@ -263,7 +282,7 @@ official torch/cu113 wheel set, then editable install.
 
 ```bash
 bash eval_system/scripts/envs/create_libero_env.sh \
-  --env env-libero \
+  --env .conda-envs/api-libero \
   --repo simulators/LIBERO
 ```
 
@@ -271,7 +290,7 @@ Skip the torch install if you already installed a GPU-specific PyTorch build:
 
 ```bash
 bash eval_system/scripts/envs/create_libero_env.sh \
-  --env env-libero \
+  --env .conda-envs/api-libero \
   --repo simulators/LIBERO \
   --skip-torch
 ```
@@ -293,7 +312,7 @@ Install it with:
 
 ```bash
 bash eval_system/scripts/envs/create_simplerenv_env.sh \
-  --env env-simpler \
+  --env .conda-envs/api-simplerenv \
   --repo /path/to/SimplerEnv
 ```
 
@@ -301,7 +320,7 @@ Install optional full requirements:
 
 ```bash
 bash eval_system/scripts/envs/create_simplerenv_env.sh \
-  --env env-simpler \
+  --env .conda-envs/api-simplerenv \
   --repo /path/to/SimplerEnv \
   --full-requirements
 ```

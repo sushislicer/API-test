@@ -23,7 +23,7 @@ Usage: $0 [options]
 Run static API preflight checks. This does not launch model/simulator code.
 
 Options:
-  --env NAME              Conda env for this lightweight client. Default: EVAL_ENV or current Python.
+  --env ENV               Conda env name or prefix path. Default: EVAL_ENV or current Python.
   --benchmark NAME        Default: ${BENCHMARK}
   --task NAME             Default: ${TASK}
   --model-adapter NAME    Default: ${MODEL_ADAPTER}

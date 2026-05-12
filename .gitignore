@@ -14,6 +14,9 @@ results/preflight/*
 downloads/*
 !downloads/README.md
 !downloads/checkpoints/
+downloads/checkpoints/**
+!downloads/checkpoints/**/
+!downloads/checkpoints/**/.gitkeep
 !downloads/checkpoints/.gitkeep
 !downloads/checkpoints/lda-1b/
 !downloads/checkpoints/lda-1b/.gitkeep
@@ -24,6 +27,9 @@ downloads/*
 !downloads/checkpoints/fastwam/
 !downloads/checkpoints/fastwam/.gitkeep
 !downloads/assets/
+downloads/assets/**
+!downloads/assets/**/
+!downloads/assets/**/.gitkeep
 !downloads/assets/.gitkeep
 !downloads/assets/robotwin/
 !downloads/assets/robotwin/.gitkeep
@@ -32,7 +38,12 @@ downloads/*
 !downloads/assets/simplerenv/
 !downloads/assets/simplerenv/.gitkeep
 !downloads/datasets/
+downloads/datasets/**
+!downloads/datasets/**/
+!downloads/datasets/**/.gitkeep
 !downloads/datasets/.gitkeep
+
+.conda-envs/
 
 out/
 api/out/

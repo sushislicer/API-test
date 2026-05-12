@@ -17,7 +17,7 @@ Usage: $0 [options]
 Start a model API server without Docker.
 
 Options:
-  --env NAME        Conda env to run in. Default: MODEL_ENV or current Python.
+  --env ENV         Conda env name or prefix path. Default: MODEL_ENV, adapter API env, or current Python.
   --adapter NAME    Model adapter. Default: ${ADAPTER}
   --host HOST       Bind host. Default: ${HOST}
   --port PORT       Bind port. Default: ${PORT}
@@ -57,6 +57,17 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ -z "${ENV_NAME}" ]]; then
+  case "${ADAPTER}" in
+    lda-1b)
+      ENV_NAME="${API_CONDA_ENVS_DIR}/api-lda-1b"
+      ;;
+    lingbot-va)
+      ENV_NAME="${API_CONDA_ENVS_DIR}/api-lingbot-va"
+      ;;
+  esac
+fi
 
 run_python "${ENV_NAME}" "${PYTHON_BIN}" -m eval_system.model_server.server \
   --adapter "${ADAPTER}" \

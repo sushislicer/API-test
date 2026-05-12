@@ -8,6 +8,11 @@ commands work after cloning to any remote path.
 Set `DOWNLOAD_ROOT` to the checkpoint/asset cache. The default is
 `${API_ROOT}/downloads`; on the A800 machine this can point to a larger mounted
 disk.
+Examples use API-owned conda prefix envs under `.conda-envs/`. Create them with
+`bash eval_system/scripts/envs/create_api_envs.sh`, or pass any other env name
+or prefix path to `--env`. For known heavy adapters, `start_model_server.sh`
+and `start_sim_server.sh` default to the matching `.conda-envs/api-*` env when
+`--env` is omitted.
 
 ## 1. Start Simulator Server
 
@@ -18,7 +23,7 @@ export API_ROOT="$(pwd)"
 export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export LIBERO_ROOT="${API_ROOT}/simulators/LIBERO"
 ./eval_system/scripts/run/start_sim_server.sh \
-  --env env-libero \
+  --env .conda-envs/api-libero \
   --adapter libero \
   --host 127.0.0.1 \
   --port 50052
@@ -31,7 +36,7 @@ export API_ROOT="$(pwd)"
 export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin"
 ./eval_system/scripts/run/start_sim_server.sh \
-  --env env-robotwin \
+  --env .conda-envs/api-robotwin \
   --adapter robotwin \
   --host 127.0.0.1 \
   --port 50052
@@ -41,7 +46,7 @@ SimplerEnv:
 
 ```bash
 ./eval_system/scripts/run/start_sim_server.sh \
-  --env env-simpler \
+  --env .conda-envs/api-simplerenv \
   --adapter simplerenv \
   --host 127.0.0.1 \
   --port 50052
@@ -59,7 +64,7 @@ export LINGBOT_VA_ROOT="${API_ROOT}/models/lingbot-va"
 export LINGBOT_VA_HOST=127.0.0.1
 export LINGBOT_VA_PORT=29056
 ./eval_system/scripts/run/start_model_server.sh \
-  --env env-lingbot-va \
+  --env .conda-envs/api-lingbot-va \
   --adapter lingbot-va \
   --host 127.0.0.1 \
   --port 50051
@@ -74,7 +79,7 @@ export LDA_1B_ROOT="${API_ROOT}/models/LDA-1B"
 export LDA_1B_HOST=127.0.0.1
 export LDA_1B_PORT=10093
 ./eval_system/scripts/run/start_model_server.sh \
-  --env env-lda-1b \
+  --env .conda-envs/api-lda-1b \
   --adapter lda-1b \
   --host 127.0.0.1 \
   --port 50051
@@ -126,7 +131,7 @@ export API_ROOT="$(pwd)"
 export DOWNLOAD_ROOT="${API_ROOT}/downloads"
 export ROBOTWIN_ROOT="${API_ROOT}/simulators/RoboTwin"
 ./eval_system/scripts/run/start_sim_server.sh \
-  --env env-robotwin \
+  --env .conda-envs/api-robotwin \
   --adapter robotwin \
   --host 127.0.0.1 \
   --port 50052
