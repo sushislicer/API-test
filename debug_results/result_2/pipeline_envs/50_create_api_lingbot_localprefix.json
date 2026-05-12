@@ -3,6 +3,6 @@
   "returncode": 1,
   "env_exists": false,
   "python_exists": false,
-  "log": "/mnt/ckp/API-test/debug_results/pipeline_envs/50_create_api_lingbot_localprefix.log",
+  "log": "/mnt/ckp/API-test/debug_results/result_2/pipeline_envs/50_create_api_lingbot_localprefix.log",
   "status": "failed"
 }

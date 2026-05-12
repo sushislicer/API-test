@@ -2,5 +2,5 @@
   "check": "lingbot_env_imports",
   "status": "passed",
   "python": "/opt/conda/envs/RoboTwin2/bin/python",
-  "log": "/mnt/ckp/API-test/debug_results/pipeline_checks/08_lingbot_env_imports.log"
+  "log": "/mnt/ckp/API-test/debug_results/result_1/pipeline_checks/08_lingbot_env_imports.log"
 }

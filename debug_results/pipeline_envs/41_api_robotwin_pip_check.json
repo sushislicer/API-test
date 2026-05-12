@@ -1,6 +1,0 @@
-{
-  "check": "api_robotwin_pip_check",
-  "returncode": 127,
-  "status": "failed",
-  "log": "/mnt/ckp/API-test/debug_results/pipeline_envs/41_api_robotwin_pip_check.log"
-}
