@@ -224,6 +224,12 @@ bash eval_system/scripts/envs/create_lda_1b_env.sh \
   --repo models/LDA-1B \
   --validate-only
 
+# Repair a partial env that has torch but is missing later LDA install steps
+bash eval_system/scripts/envs/create_lda_1b_env.sh \
+  --env .conda-envs/api-lda-1b \
+  --repo models/LDA-1B \
+  --repair-requirements
+
 # On a GPU node, also fail validation if torch cannot see CUDA
 bash eval_system/scripts/envs/create_lda_1b_env.sh \
   --env .conda-envs/api-lda-1b \

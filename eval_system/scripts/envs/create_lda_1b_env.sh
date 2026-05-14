@@ -14,6 +14,7 @@ INSTALL_FLASH_ATTN=1
 INSTALL_EDITABLE=1
 RUN_VALIDATION=1
 LINK_API=1
+REPAIR_REQUIREMENTS=0
 REQUIRE_CUDA=0
 TORCH_INDEX_URL="${LDA_1B_TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu124}"
 TORCH_PACKAGES=(torch==2.6.0 torchvision==0.21.0)
@@ -35,6 +36,7 @@ Options:
   --no-editable          Skip pip install -e on the LDA-1B checkout.
   --skip-validation      Do not run import/native-server help checks after install.
   --validate-only        Only run validation against an existing env.
+  --repair-requirements  Repair a partial env by skipping torch and running the remaining LDA install.
   --require-cuda         Fail validation unless torch can see CUDA.
   -h, --help             Show this help.
 
@@ -96,6 +98,16 @@ while [[ $# -gt 0 ]]; do
       RUN_VALIDATION=1
       shift
       ;;
+    --repair-requirements)
+      INSTALL_TORCH=0
+      INSTALL_REQUIREMENTS=1
+      INSTALL_FLASH_ATTN=1
+      INSTALL_EDITABLE=1
+      LINK_API=1
+      REPAIR_REQUIREMENTS=1
+      RUN_VALIDATION=1
+      shift
+      ;;
     --require-cuda)
       REQUIRE_CUDA=1
       shift
@@ -115,9 +127,10 @@ assert_repo_dir "LDA-1B" "${LDA_REPO}"
 
 validate_lda_env() {
   info "validating LDA-1B environment imports"
-  run_in_env "${ENV_NAME}" bash -lc "cd '${LDA_REPO}' && LDA_1B_REQUIRE_CUDA='${REQUIRE_CUDA}' python - <<'PY'
+  run_in_env "${ENV_NAME}" bash -lc "cd '${LDA_REPO}' && LDA_1B_REQUIRE_CUDA='${REQUIRE_CUDA}' LDA_1B_REPAIR_ENV='${ENV_NAME}' LDA_1B_REPAIR_REPO='${LDA_REPO}' python - <<'PY'
 import importlib
 import os
+import sys
 
 modules = [
     'torch',
@@ -131,8 +144,21 @@ modules = [
     'eval_system',
 ]
 
+missing = []
 for module in modules:
-    importlib.import_module(module)
+    try:
+        importlib.import_module(module)
+    except ModuleNotFoundError as exc:
+        missing.append(exc.name or module)
+
+if missing:
+    unique_missing = sorted(set(missing))
+    env_name = os.environ.get('LDA_1B_REPAIR_ENV', 'ENV')
+    repo_path = os.environ.get('LDA_1B_REPAIR_REPO', 'REPO')
+    print('missing LDA-1B environment modules:', ', '.join(unique_missing), file=sys.stderr)
+    print('repair with:', file=sys.stderr)
+    print(f'  bash eval_system/scripts/envs/create_lda_1b_env.sh --env {env_name} --repo {repo_path} --repair-requirements', file=sys.stderr)
+    raise SystemExit(1)
 
 import torch
 
@@ -147,6 +173,10 @@ PY"
 
 if ! conda_env_exists "${ENV_NAME}" && [[ "${INSTALL_TORCH}" -eq 0 && "${INSTALL_REQUIREMENTS}" -eq 0 && "${INSTALL_FLASH_ATTN}" -eq 0 && "${INSTALL_EDITABLE}" -eq 0 ]]; then
   die "conda env $(conda_env_label "${ENV_NAME}") does not exist"
+fi
+
+if ! conda_env_exists "${ENV_NAME}" && [[ "${REPAIR_REQUIREMENTS}" -eq 1 ]]; then
+  die "cannot repair requirements because conda env $(conda_env_label "${ENV_NAME}") does not exist"
 fi
 
 if [[ "${INSTALL_TORCH}" -eq 1 || "${INSTALL_REQUIREMENTS}" -eq 1 || "${INSTALL_FLASH_ATTN}" -eq 1 || "${INSTALL_EDITABLE}" -eq 1 ]]; then
