@@ -260,8 +260,14 @@ if [[ "${INSTALL_FLASH_ATTN}" -eq 1 ]]; then
     "NVCC_THREADS=${FLASH_ATTN_NVCC_THREADS}"
     "CMAKE_BUILD_PARALLEL_LEVEL=${FLASH_ATTN_MAX_JOBS}"
     "MAKEFLAGS=-j${FLASH_ATTN_MAX_JOBS}"
+    PIP_PROGRESS_BAR=off
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_ROOT_USER_ACTION=ignore
+    NO_COLOR=1
+    CLICOLOR=0
+    TERM=dumb
   )
-  flash_attn_args=(install flash-attn --no-build-isolation --no-deps)
+  flash_attn_args=(install flash-attn --no-build-isolation --no-deps --progress-bar off)
   if [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
     flash_attn_args+=(--force-reinstall --no-cache-dir)
   fi

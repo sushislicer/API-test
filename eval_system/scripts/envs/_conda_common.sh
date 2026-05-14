@@ -21,7 +21,11 @@ if [[ -z "${PIP_CACHE_DIR:-}" ]]; then
 fi
 
 export PIP_DISABLE_PIP_VERSION_CHECK="${PIP_DISABLE_PIP_VERSION_CHECK:-1}"
+export PIP_PROGRESS_BAR="${PIP_PROGRESS_BAR:-off}"
 export PIP_ROOT_USER_ACTION="${PIP_ROOT_USER_ACTION:-ignore}"
+export NO_COLOR="${NO_COLOR:-1}"
+export CLICOLOR="${CLICOLOR:-0}"
+export TERM="${TERM:-dumb}"
 
 die() {
   echo "error: $*" >&2
@@ -128,7 +132,13 @@ run_in_env() {
 pip_in_env() {
   local env_spec="$1"
   shift
-  run_in_env "${env_spec}" python -m pip "$@"
+  run_in_env "${env_spec}" env \
+    PIP_PROGRESS_BAR="${PIP_PROGRESS_BAR}" \
+    PIP_DISABLE_PIP_VERSION_CHECK="${PIP_DISABLE_PIP_VERSION_CHECK}" \
+    PIP_ROOT_USER_ACTION="${PIP_ROOT_USER_ACTION}" \
+    NO_COLOR="${NO_COLOR}" \
+    CLICOLOR="${CLICOLOR}" \
+    python -m pip "$@"
 }
 
 upgrade_pip() {
