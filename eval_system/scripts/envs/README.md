@@ -36,6 +36,11 @@ the API envs and package cache before retrying:
 bash eval_system/scripts/envs/cleanup_api_envs.sh --yes --package-cache
 ```
 
+Flash-attn source builds can be memory-heavy. The setup scripts default to
+`MAX_JOBS=4` and `NVCC_THREADS=1` for flash-attn builds. On a 32-core / 300 GB
+remote, start with that default or lower it to `--flash-attn-jobs 2` if the
+machine becomes unstable.
+
 Create the default API env set sequentially:
 
 ```bash
@@ -161,6 +166,8 @@ bash eval_system/scripts/envs/create_lingbot_va_env.sh \
   --repo models/lingbot-va \
   --repair-flash-attn \
   --build-flash-attn \
+  --flash-attn-jobs 4 \
+  --flash-attn-nvcc-threads 1 \
   --require-cuda
 
 # Add the post-training extras from the LingBot README
@@ -276,6 +283,8 @@ bash eval_system/scripts/envs/create_lda_1b_env.sh \
   --repo models/LDA-1B \
   --repair-flash-attn \
   --build-flash-attn \
+  --flash-attn-jobs 4 \
+  --flash-attn-nvcc-threads 1 \
   --require-cuda
 
 # On a GPU node, also fail validation if torch cannot see CUDA

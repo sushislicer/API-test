@@ -20,6 +20,8 @@ REPAIR_REQUIREMENTS=0
 REPAIR_FLASH_ATTN=0
 BUILD_FLASH_ATTN=0
 REQUIRE_CUDA=0
+FLASH_ATTN_MAX_JOBS="${LINGBOT_VA_FLASH_ATTN_MAX_JOBS:-${FLASH_ATTN_MAX_JOBS:-4}}"
+FLASH_ATTN_NVCC_THREADS="${LINGBOT_VA_FLASH_ATTN_NVCC_THREADS:-${FLASH_ATTN_NVCC_THREADS:-1}}"
 TORCH_INDEX_URL="${LINGBOT_VA_TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu126}"
 TORCH_PACKAGES=(torch==2.9.0 torchvision==0.24.0 torchaudio==2.9.0)
 BASE_PACKAGES=(
@@ -62,6 +64,9 @@ Options:
   --repair-requirements  Repair a partial env by skipping torch and running the remaining LingBot install.
   --repair-flash-attn    Reinstall flash-attn without changing torch, then validate.
   --build-flash-attn     With --repair-flash-attn, force a local source build.
+  --flash-attn-jobs N    Max parallel jobs for flash-attn builds. Default: ${FLASH_ATTN_MAX_JOBS}
+  --flash-attn-nvcc-threads N
+                          NVCC threads per flash-attn compile job. Default: ${FLASH_ATTN_NVCC_THREADS}
   --require-cuda         Fail validation unless torch can see CUDA.
   -h, --help             Show this help.
 
@@ -159,6 +164,14 @@ while [[ $# -gt 0 ]]; do
       BUILD_FLASH_ATTN=1
       shift
       ;;
+    --flash-attn-jobs)
+      FLASH_ATTN_MAX_JOBS="$2"
+      shift 2
+      ;;
+    --flash-attn-nvcc-threads)
+      FLASH_ATTN_NVCC_THREADS="$2"
+      shift 2
+      ;;
     --require-cuda)
       REQUIRE_CUDA=1
       shift
@@ -241,7 +254,13 @@ if [[ "${INSTALL_FLASH_ATTN}" -eq 1 ]]; then
     pip_in_env "${ENV_NAME}" uninstall -y flash-attn || true
   fi
   info "installing flash-attn with --no-build-isolation and without changing torch"
-  flash_attn_env=(env)
+  flash_attn_env=(
+    env
+    "MAX_JOBS=${FLASH_ATTN_MAX_JOBS}"
+    "NVCC_THREADS=${FLASH_ATTN_NVCC_THREADS}"
+    "CMAKE_BUILD_PARALLEL_LEVEL=${FLASH_ATTN_MAX_JOBS}"
+    "MAKEFLAGS=-j${FLASH_ATTN_MAX_JOBS}"
+  )
   flash_attn_args=(install flash-attn --no-build-isolation --no-deps)
   if [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
     flash_attn_args+=(--force-reinstall --no-cache-dir)

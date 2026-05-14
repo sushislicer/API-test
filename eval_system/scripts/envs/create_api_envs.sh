@@ -40,6 +40,8 @@ Options:
   --lda-torch-index URL        PyTorch wheel index for LDA-1B. Default: create_lda_1b_env.sh default.
   --skip-lda-torch             Skip LDA-1B torch wheel preinstall.
   --skip-flash-attn            Skip flash-attn in LDA-1B and LingBot-VA envs.
+  --flash-attn-jobs N          Max parallel jobs for flash-attn builds in LDA-1B and LingBot-VA.
+  --flash-attn-nvcc-threads N  NVCC threads per flash-attn compile job in LDA-1B and LingBot-VA.
   --skip-lingbot-torch         Skip LingBot-VA torch wheel installation.
   --lingbot-require-cuda       Fail LingBot-VA validation if torch cannot see CUDA.
   --lda-require-cuda           Fail LDA-1B validation if torch cannot see CUDA.
@@ -96,6 +98,16 @@ while [[ $# -gt 0 ]]; do
       LDA_ARGS+=(--skip-flash-attn)
       LINGBOT_ARGS+=(--skip-flash-attn)
       shift
+      ;;
+    --flash-attn-jobs)
+      LDA_ARGS+=(--flash-attn-jobs "$2")
+      LINGBOT_ARGS+=(--flash-attn-jobs "$2")
+      shift 2
+      ;;
+    --flash-attn-nvcc-threads)
+      LDA_ARGS+=(--flash-attn-nvcc-threads "$2")
+      LINGBOT_ARGS+=(--flash-attn-nvcc-threads "$2")
+      shift 2
       ;;
     --lda-require-cuda)
       LDA_ARGS+=(--require-cuda)
