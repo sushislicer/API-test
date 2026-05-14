@@ -106,8 +106,12 @@ conda activate .conda-envs/api-lingbot-va
 pip install torch==2.9.0 torchvision==0.24.0 torchaudio==2.9.0 --index-url https://download.pytorch.org/whl/cu126
 pip install websockets einops diffusers==0.36.0 transformers==4.55.2 accelerate msgpack opencv-python matplotlib ftfy easydict
 pip install flash-attn --no-build-isolation
-pip install --no-deps -e models/lingbot-va
 ```
+
+The script links the LingBot-VA checkout into the env with a `.pth` file instead
+of `pip install -e`, because the upstream package metadata does not match the
+repo's import layout. The native server still runs from the LingBot repo root,
+matching the upstream RobotWin launch scripts.
 
 Useful options:
 
@@ -129,6 +133,35 @@ bash eval_system/scripts/envs/create_lingbot_va_env.sh \
   --env .conda-envs/api-lingbot-va \
   --repo models/lingbot-va \
   --requirements
+
+# Re-run only setup validation after a remote install
+bash eval_system/scripts/envs/create_lingbot_va_env.sh \
+  --env .conda-envs/api-lingbot-va \
+  --repo models/lingbot-va \
+  --validate-only \
+  --require-cuda
+
+# Repair a partial env that has torch but is missing later LingBot install steps
+bash eval_system/scripts/envs/create_lingbot_va_env.sh \
+  --env .conda-envs/api-lingbot-va \
+  --repo models/lingbot-va \
+  --repair-requirements \
+  --require-cuda
+
+# Repair a flash-attn extension that was built for a different torch/CUDA ABI
+bash eval_system/scripts/envs/create_lingbot_va_env.sh \
+  --env .conda-envs/api-lingbot-va \
+  --repo models/lingbot-va \
+  --repair-flash-attn \
+  --require-cuda
+
+# If the compatible wheel still has an undefined symbol, build flash-attn locally
+bash eval_system/scripts/envs/create_lingbot_va_env.sh \
+  --env .conda-envs/api-lingbot-va \
+  --repo models/lingbot-va \
+  --repair-flash-attn \
+  --build-flash-attn \
+  --require-cuda
 
 # Add the post-training extras from the LingBot README
 bash eval_system/scripts/envs/create_lingbot_va_env.sh \
@@ -229,6 +262,21 @@ bash eval_system/scripts/envs/create_lda_1b_env.sh \
   --env .conda-envs/api-lda-1b \
   --repo models/LDA-1B \
   --repair-requirements
+
+# Repair a flash-attn extension that was built for a different torch/CUDA ABI
+bash eval_system/scripts/envs/create_lda_1b_env.sh \
+  --env .conda-envs/api-lda-1b \
+  --repo models/LDA-1B \
+  --repair-flash-attn \
+  --require-cuda
+
+# If the compatible wheel still has an undefined symbol, build flash-attn locally
+bash eval_system/scripts/envs/create_lda_1b_env.sh \
+  --env .conda-envs/api-lda-1b \
+  --repo models/LDA-1B \
+  --repair-flash-attn \
+  --build-flash-attn \
+  --require-cuda
 
 # On a GPU node, also fail validation if torch cannot see CUDA
 bash eval_system/scripts/envs/create_lda_1b_env.sh \

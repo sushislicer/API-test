@@ -41,6 +41,7 @@ Options:
   --skip-lda-torch             Skip LDA-1B torch wheel preinstall.
   --skip-flash-attn            Skip flash-attn in LDA-1B and LingBot-VA envs.
   --skip-lingbot-torch         Skip LingBot-VA torch wheel installation.
+  --lingbot-require-cuda       Fail LingBot-VA validation if torch cannot see CUDA.
   --lda-require-cuda           Fail LDA-1B validation if torch cannot see CUDA.
   --lingbot-requirements       Install LingBot-VA requirements.txt instead of README package set.
   --robotwin-manual            Use RoboTwin requirements fallback instead of script/_install.sh.
@@ -102,6 +103,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --skip-lingbot-torch)
       LINGBOT_ARGS+=(--skip-torch)
+      shift
+      ;;
+    --lingbot-require-cuda)
+      LINGBOT_ARGS+=(--require-cuda)
       shift
       ;;
     --lingbot-requirements)

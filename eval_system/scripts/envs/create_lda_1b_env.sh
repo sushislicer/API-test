@@ -15,6 +15,8 @@ INSTALL_EDITABLE=1
 RUN_VALIDATION=1
 LINK_API=1
 REPAIR_REQUIREMENTS=0
+REPAIR_FLASH_ATTN=0
+BUILD_FLASH_ATTN=0
 REQUIRE_CUDA=0
 TORCH_INDEX_URL="${LDA_1B_TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu124}"
 TORCH_PACKAGES=(torch==2.6.0 torchvision==0.21.0)
@@ -37,6 +39,8 @@ Options:
   --skip-validation      Do not run import/native-server help checks after install.
   --validate-only        Only run validation against an existing env.
   --repair-requirements  Repair a partial env by skipping torch and running the remaining LDA install.
+  --repair-flash-attn    Reinstall flash-attn without changing torch, then validate.
+  --build-flash-attn     With --repair-flash-attn, force a local source build.
   --require-cuda         Fail validation unless torch can see CUDA.
   -h, --help             Show this help.
 
@@ -108,6 +112,20 @@ while [[ $# -gt 0 ]]; do
       RUN_VALIDATION=1
       shift
       ;;
+    --repair-flash-attn)
+      INSTALL_TORCH=0
+      INSTALL_REQUIREMENTS=0
+      INSTALL_FLASH_ATTN=1
+      INSTALL_EDITABLE=0
+      LINK_API=0
+      REPAIR_FLASH_ATTN=1
+      RUN_VALIDATION=1
+      shift
+      ;;
+    --build-flash-attn)
+      BUILD_FLASH_ATTN=1
+      shift
+      ;;
     --require-cuda)
       REQUIRE_CUDA=1
       shift
@@ -148,6 +166,10 @@ if ! conda_env_exists "${ENV_NAME}" && [[ "${REPAIR_REQUIREMENTS}" -eq 1 ]]; the
   die "cannot repair requirements because conda env $(conda_env_label "${ENV_NAME}") does not exist"
 fi
 
+if ! conda_env_exists "${ENV_NAME}" && [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
+  die "cannot repair flash-attn because conda env $(conda_env_label "${ENV_NAME}") does not exist"
+fi
+
 if [[ "${INSTALL_TORCH}" -eq 1 || "${INSTALL_REQUIREMENTS}" -eq 1 || "${INSTALL_FLASH_ATTN}" -eq 1 || "${INSTALL_EDITABLE}" -eq 1 ]]; then
   create_conda_env "${ENV_NAME}" "${PYTHON_VERSION}"
   upgrade_pip "${ENV_NAME}"
@@ -171,8 +193,21 @@ else
 fi
 
 if [[ "${INSTALL_FLASH_ATTN}" -eq 1 ]]; then
-  info "installing flash-attn with --no-build-isolation"
-  pip_in_env "${ENV_NAME}" install flash-attn --no-build-isolation
+  if [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
+    info "removing existing flash-attn before repair"
+    pip_in_env "${ENV_NAME}" uninstall -y flash-attn || true
+  fi
+  info "installing flash-attn with --no-build-isolation and without changing torch"
+  flash_attn_env=(env)
+  flash_attn_args=(install flash-attn --no-build-isolation --no-deps)
+  if [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
+    flash_attn_args+=(--force-reinstall --no-cache-dir)
+  fi
+  if [[ "${BUILD_FLASH_ATTN}" -eq 1 ]]; then
+    flash_attn_env+=(FLASH_ATTENTION_FORCE_BUILD=TRUE)
+    flash_attn_args+=(--no-binary flash-attn)
+  fi
+  run_in_env "${ENV_NAME}" "${flash_attn_env[@]}" python -m pip "${flash_attn_args[@]}"
 else
   info "skipping flash-attn install"
 fi

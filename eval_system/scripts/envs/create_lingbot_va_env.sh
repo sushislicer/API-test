@@ -10,9 +10,16 @@ PYTHON_VERSION="${LINGBOT_VA_PYTHON_VERSION:-3.10.16}"
 LINGBOT_REPO="${LINGBOT_VA_REPO:-$(default_repo_path "${API_ROOT}/models/lingbot-va")}"
 INSTALL_TORCH=1
 INSTALL_FLASH_ATTN=1
+INSTALL_DEPS=1
 INSTALL_REQUIREMENTS=0
 INSTALL_EDITABLE=1
 INSTALL_POSTTRAIN=0
+RUN_VALIDATION=1
+LINK_API=1
+REPAIR_REQUIREMENTS=0
+REPAIR_FLASH_ATTN=0
+BUILD_FLASH_ATTN=0
+REQUIRE_CUDA=0
 TORCH_INDEX_URL="${LINGBOT_VA_TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu126}"
 TORCH_PACKAGES=(torch==2.9.0 torchvision==0.24.0 torchaudio==2.9.0)
 BASE_PACKAGES=(
@@ -46,9 +53,16 @@ Options:
   --torch-index URL      PyTorch wheel index. Default: ${TORCH_INDEX_URL}
   --skip-torch           Do not install the README torch/cu126 wheel set.
   --requirements         Install requirements.txt exactly instead of the README package list.
+  --skip-requirements    Do not install the README package set or requirements.txt.
   --skip-flash-attn      Do not install flash-attn separately.
   --post-training        Also install LingBot-VA post-training extras.
-  --no-editable          Skip pip install -e on the LingBot-VA checkout.
+  --no-editable          Skip linking the LingBot-VA checkout into site-packages.
+  --skip-validation      Do not run import/native-server help checks after install.
+  --validate-only        Only run validation against an existing env.
+  --repair-requirements  Repair a partial env by skipping torch and running the remaining LingBot install.
+  --repair-flash-attn    Reinstall flash-attn without changing torch, then validate.
+  --build-flash-attn     With --repair-flash-attn, force a local source build.
+  --require-cuda         Fail validation unless torch can see CUDA.
   -h, --help             Show this help.
 
 Default mode follows the LingBot-VA README installation:
@@ -84,7 +98,12 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     --requirements)
+      INSTALL_DEPS=1
       INSTALL_REQUIREMENTS=1
+      shift
+      ;;
+    --skip-requirements)
+      INSTALL_DEPS=0
       shift
       ;;
     --skip-flash-attn)
@@ -97,6 +116,51 @@ while [[ $# -gt 0 ]]; do
       ;;
     --no-editable)
       INSTALL_EDITABLE=0
+      shift
+      ;;
+    --skip-validation)
+      RUN_VALIDATION=0
+      shift
+      ;;
+    --validate-only)
+      INSTALL_TORCH=0
+      INSTALL_FLASH_ATTN=0
+      INSTALL_DEPS=0
+      INSTALL_REQUIREMENTS=0
+      INSTALL_EDITABLE=0
+      INSTALL_POSTTRAIN=0
+      LINK_API=0
+      RUN_VALIDATION=1
+      shift
+      ;;
+    --repair-requirements)
+      INSTALL_TORCH=0
+      INSTALL_FLASH_ATTN=1
+      INSTALL_DEPS=1
+      INSTALL_EDITABLE=1
+      LINK_API=1
+      REPAIR_REQUIREMENTS=1
+      RUN_VALIDATION=1
+      shift
+      ;;
+    --repair-flash-attn)
+      INSTALL_TORCH=0
+      INSTALL_FLASH_ATTN=1
+      INSTALL_DEPS=0
+      INSTALL_REQUIREMENTS=0
+      INSTALL_EDITABLE=0
+      INSTALL_POSTTRAIN=0
+      LINK_API=0
+      REPAIR_FLASH_ATTN=1
+      RUN_VALIDATION=1
+      shift
+      ;;
+    --build-flash-attn)
+      BUILD_FLASH_ATTN=1
+      shift
+      ;;
+    --require-cuda)
+      REQUIRE_CUDA=1
       shift
       ;;
     -h|--help)
@@ -112,8 +176,44 @@ done
 assert_repo_dir "LingBot-VA" "${LINGBOT_REPO}"
 [[ -f "${LINGBOT_REPO}/wan_va/wan_va_server.py" ]] || die "LingBot-VA repo is missing wan_va/wan_va_server.py: ${LINGBOT_REPO}"
 
-create_conda_env "${ENV_NAME}" "${PYTHON_VERSION}"
-upgrade_pip "${ENV_NAME}"
+validate_lingbot_env() {
+  info "validating LingBot-VA environment imports"
+  local cuda_arg=()
+  if [[ "${REQUIRE_CUDA}" -eq 1 ]]; then
+    cuda_arg=(--require-cuda)
+  fi
+  run_in_env "${ENV_NAME}" python "${SCRIPT_DIR}/validate_lingbot_va_env.py" \
+    --api-root "${API_ROOT}" \
+    --repo "${LINGBOT_REPO}" \
+    --env "${ENV_NAME}" \
+    "${cuda_arg[@]}"
+  info "validating LingBot-VA native server CLI import"
+  run_in_env "${ENV_NAME}" bash -lc "cd '${LINGBOT_REPO}' && python wan_va/wan_va_server.py --help >/dev/null"
+}
+
+link_lingbot_repo() {
+  info "linking LingBot-VA checkout into $(conda_env_label "${ENV_NAME}"): ${LINGBOT_REPO}"
+  run_in_env "${ENV_NAME}" env LINGBOT_REPO="${LINGBOT_REPO}" python -c 'import os, site; root=os.environ["LINGBOT_REPO"]; paths=site.getsitepackages(); target=os.path.join(paths[0], "lingbot_va_repo.pth"); open(target, "w", encoding="utf-8").write(root + "\n"); print(target)'
+}
+
+if ! conda_env_exists "${ENV_NAME}" && [[ "${INSTALL_TORCH}" -eq 0 && "${INSTALL_DEPS}" -eq 0 && "${INSTALL_FLASH_ATTN}" -eq 0 && "${INSTALL_EDITABLE}" -eq 0 && "${INSTALL_POSTTRAIN}" -eq 0 ]]; then
+  die "conda env $(conda_env_label "${ENV_NAME}") does not exist"
+fi
+
+if ! conda_env_exists "${ENV_NAME}" && [[ "${REPAIR_REQUIREMENTS}" -eq 1 ]]; then
+  die "cannot repair requirements because conda env $(conda_env_label "${ENV_NAME}") does not exist"
+fi
+
+if ! conda_env_exists "${ENV_NAME}" && [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
+  die "cannot repair flash-attn because conda env $(conda_env_label "${ENV_NAME}") does not exist"
+fi
+
+if [[ "${INSTALL_TORCH}" -eq 1 || "${INSTALL_DEPS}" -eq 1 || "${INSTALL_FLASH_ATTN}" -eq 1 || "${INSTALL_EDITABLE}" -eq 1 || "${INSTALL_POSTTRAIN}" -eq 1 ]]; then
+  create_conda_env "${ENV_NAME}" "${PYTHON_VERSION}"
+  upgrade_pip "${ENV_NAME}"
+else
+  info "skipping install steps"
+fi
 
 if [[ "${INSTALL_TORCH}" -eq 1 ]]; then
   info "installing LingBot-VA torch/cu126 wheel set"
@@ -122,18 +222,35 @@ else
   info "skipping torch install"
 fi
 
-if [[ "${INSTALL_REQUIREMENTS}" -eq 1 ]]; then
-  [[ -f "${LINGBOT_REPO}/requirements.txt" ]] || die "missing ${LINGBOT_REPO}/requirements.txt"
-  info "installing LingBot-VA requirements.txt"
-  pip_in_env "${ENV_NAME}" install -r "${LINGBOT_REPO}/requirements.txt"
+if [[ "${INSTALL_DEPS}" -eq 1 ]]; then
+  if [[ "${INSTALL_REQUIREMENTS}" -eq 1 ]]; then
+    [[ -f "${LINGBOT_REPO}/requirements.txt" ]] || die "missing ${LINGBOT_REPO}/requirements.txt"
+    info "installing LingBot-VA requirements.txt"
+    pip_in_env "${ENV_NAME}" install -r "${LINGBOT_REPO}/requirements.txt"
+  else
+    info "installing LingBot-VA README package set"
+    pip_in_env "${ENV_NAME}" install "${BASE_PACKAGES[@]}"
+  fi
 else
-  info "installing LingBot-VA README package set"
-  pip_in_env "${ENV_NAME}" install "${BASE_PACKAGES[@]}"
+  info "skipping LingBot-VA package set"
 fi
 
 if [[ "${INSTALL_FLASH_ATTN}" -eq 1 ]]; then
-  info "installing flash-attn with --no-build-isolation"
-  pip_in_env "${ENV_NAME}" install flash-attn --no-build-isolation
+  if [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
+    info "removing existing flash-attn before repair"
+    pip_in_env "${ENV_NAME}" uninstall -y flash-attn || true
+  fi
+  info "installing flash-attn with --no-build-isolation and without changing torch"
+  flash_attn_env=(env)
+  flash_attn_args=(install flash-attn --no-build-isolation --no-deps)
+  if [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
+    flash_attn_args+=(--force-reinstall --no-cache-dir)
+  fi
+  if [[ "${BUILD_FLASH_ATTN}" -eq 1 ]]; then
+    flash_attn_env+=(FLASH_ATTENTION_FORCE_BUILD=TRUE)
+    flash_attn_args+=(--no-binary flash-attn)
+  fi
+  run_in_env "${ENV_NAME}" "${flash_attn_env[@]}" python -m pip "${flash_attn_args[@]}"
 else
   info "skipping flash-attn install"
 fi
@@ -144,13 +261,20 @@ if [[ "${INSTALL_POSTTRAIN}" -eq 1 ]]; then
 fi
 
 if [[ "${INSTALL_EDITABLE}" -eq 1 ]]; then
-  info "installing LingBot-VA editable package without changing installed pins"
-  pip_in_env "${ENV_NAME}" install --no-deps -e "${LINGBOT_REPO}"
+  link_lingbot_repo
 else
-  info "skipping editable LingBot-VA install"
+  info "skipping LingBot-VA repo link"
 fi
 
-link_api_package "${ENV_NAME}"
+if [[ "${LINK_API}" -eq 1 ]]; then
+  link_api_package "${ENV_NAME}"
+fi
+
+if [[ "${RUN_VALIDATION}" -eq 1 ]]; then
+  validate_lingbot_env
+else
+  info "skipping validation"
+fi
 
 info "done. Run with: conda activate $(conda_activate_arg "${ENV_NAME}")"
 info "for this API adapter, set LINGBOT_VA_ROOT=${LINGBOT_REPO} or pass task.metadata.repo_path"

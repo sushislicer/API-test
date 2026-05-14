@@ -12,19 +12,26 @@ from pathlib import Path
 
 MODULES = [
     "accelerate",
-    "transformers",
     "diffusers",
+    "transformers",
     "websockets",
     "msgpack",
+    "cv2",
+    "matplotlib",
+    "ftfy",
+    "easydict",
+    "safetensors",
+    "PIL",
     "flash_attn",
     "flash_attn.flash_attn_interface",
-    "deployment.model_server.server_policy",
+    "wan_va.wan_va_server",
+    "evaluation.robotwin.msgpack_numpy",
     "eval_system",
 ]
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Validate an LDA-1B API conda environment")
+    parser = argparse.ArgumentParser(description="Validate a LingBot-VA API conda environment")
     parser.add_argument("--api-root", required=True)
     parser.add_argument("--repo", required=True)
     parser.add_argument("--env", required=True)
@@ -39,11 +46,12 @@ def main() -> int:
     try:
         import torch
         import torchvision
+        import torchaudio
     except Exception as exc:
-        print(f"failed to import torch/torchvision: {type(exc).__name__}: {exc}", file=sys.stderr)
+        print(f"failed to import torch/torchvision/torchaudio: {type(exc).__name__}: {exc}", file=sys.stderr)
         print("repair with:", file=sys.stderr)
         print(
-            f"  bash eval_system/scripts/envs/create_lda_1b_env.sh --env {args.env} --repo {repo} "
+            f"  bash eval_system/scripts/envs/create_lingbot_va_env.sh --env {args.env} --repo {repo} "
             "--skip-requirements --skip-flash-attn --no-editable --require-cuda",
             file=sys.stderr,
         )
@@ -53,6 +61,7 @@ def main() -> int:
     device_count = torch.cuda.device_count()
     print(f"torch={torch.__version__}")
     print(f"torchvision={torchvision.__version__}")
+    print(f"torchaudio={torchaudio.__version__}")
     print(f"torch.version.cuda={torch.version.cuda}")
     print(f"torch.cuda.is_available={cuda_available}")
     print(f"torch.cuda.device_count={device_count}")
@@ -91,31 +100,31 @@ def main() -> int:
             import_errors.append((module, type(exc).__name__, str(exc)))
 
     if missing:
-        print("missing LDA-1B environment modules: " + ", ".join(sorted(set(missing))), file=sys.stderr)
+        print("missing LingBot-VA environment modules: " + ", ".join(sorted(set(missing))), file=sys.stderr)
         print("repair with:", file=sys.stderr)
         print(
-            f"  bash eval_system/scripts/envs/create_lda_1b_env.sh --env {args.env} --repo {repo} --repair-requirements",
+            f"  bash eval_system/scripts/envs/create_lingbot_va_env.sh --env {args.env} --repo {repo} --repair-requirements",
             file=sys.stderr,
         )
         return 1
 
     if import_errors:
-        print("failed LDA-1B environment imports:", file=sys.stderr)
+        print("failed LingBot-VA environment imports:", file=sys.stderr)
         flash_attn_error = False
         for module, exc_type, message in import_errors:
             print(f"  {module}: {exc_type}: {message}", file=sys.stderr)
-            if "flash_attn" in message or "flash_attn" in module:
+            if "flash_attn" in module or "flash_attn" in message:
                 flash_attn_error = True
         if flash_attn_error:
             print("flash-attn appears incompatible with the installed torch/CUDA ABI.", file=sys.stderr)
             print("repair with:", file=sys.stderr)
             print(
-                f"  bash eval_system/scripts/envs/create_lda_1b_env.sh --env {args.env} --repo {repo} --repair-flash-attn",
+                f"  bash eval_system/scripts/envs/create_lingbot_va_env.sh --env {args.env} --repo {repo} --repair-flash-attn",
                 file=sys.stderr,
             )
             print("if that still reports an undefined symbol, rebuild flash-attn from source with:", file=sys.stderr)
             print(
-                f"  bash eval_system/scripts/envs/create_lda_1b_env.sh --env {args.env} --repo {repo} "
+                f"  bash eval_system/scripts/envs/create_lingbot_va_env.sh --env {args.env} --repo {repo} "
                 "--repair-flash-attn --build-flash-attn",
                 file=sys.stderr,
             )
@@ -124,9 +133,9 @@ def main() -> int:
     if args.require_cuda and not cuda_available:
         print("CUDA validation failed.", file=sys.stderr)
         if torch.version.cuda is None:
-            print("The installed torch build is CPU-only. Reinstall the LDA torch CUDA wheel set:", file=sys.stderr)
+            print("The installed torch build is CPU-only. Reinstall the LingBot torch CUDA wheel set:", file=sys.stderr)
             print(
-                f"  bash eval_system/scripts/envs/create_lda_1b_env.sh --env {args.env} --repo {repo} "
+                f"  bash eval_system/scripts/envs/create_lingbot_va_env.sh --env {args.env} --repo {repo} "
                 "--skip-requirements --skip-flash-attn --no-editable --require-cuda",
                 file=sys.stderr,
             )
