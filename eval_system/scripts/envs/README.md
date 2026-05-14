@@ -238,6 +238,13 @@ bash eval_system/scripts/envs/create_lda_1b_env.sh \
   --require-cuda
 ```
 
+If CUDA validation fails, the script prints `torch.version.cuda`,
+`torch.cuda.is_available`, `torch.cuda.device_count`, `CUDA_VISIBLE_DEVICES`,
+and `nvidia-smi` status. If `torch.version.cuda` is `None`, reinstall just the
+CUDA torch wheel set with `--skip-requirements --skip-flash-attn --no-editable`.
+If `torch.version.cuda` is set but `torch.cuda.device_count` is `0`, run the
+same command from a GPU-visible remote shell or fix `CUDA_VISIBLE_DEVICES`.
+
 The script does not download LDA checkpoints, Qwen checkpoints, or DINO
 checkpoints. Put those on disk following the LDA README, then start the native
 LDA server from the LDA env:

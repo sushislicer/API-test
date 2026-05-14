@@ -127,46 +127,15 @@ assert_repo_dir "LDA-1B" "${LDA_REPO}"
 
 validate_lda_env() {
   info "validating LDA-1B environment imports"
-  run_in_env "${ENV_NAME}" bash -lc "cd '${LDA_REPO}' && LDA_1B_REQUIRE_CUDA='${REQUIRE_CUDA}' LDA_1B_REPAIR_ENV='${ENV_NAME}' LDA_1B_REPAIR_REPO='${LDA_REPO}' python - <<'PY'
-import importlib
-import os
-import sys
-
-modules = [
-    'torch',
-    'torchvision',
-    'accelerate',
-    'transformers',
-    'diffusers',
-    'websockets',
-    'msgpack',
-    'deployment.model_server.server_policy',
-    'eval_system',
-]
-
-missing = []
-for module in modules:
-    try:
-        importlib.import_module(module)
-    except ModuleNotFoundError as exc:
-        missing.append(exc.name or module)
-
-if missing:
-    unique_missing = sorted(set(missing))
-    env_name = os.environ.get('LDA_1B_REPAIR_ENV', 'ENV')
-    repo_path = os.environ.get('LDA_1B_REPAIR_REPO', 'REPO')
-    print('missing LDA-1B environment modules:', ', '.join(unique_missing), file=sys.stderr)
-    print('repair with:', file=sys.stderr)
-    print(f'  bash eval_system/scripts/envs/create_lda_1b_env.sh --env {env_name} --repo {repo_path} --repair-requirements', file=sys.stderr)
-    raise SystemExit(1)
-
-import torch
-
-cuda_available = torch.cuda.is_available()
-print('torch', torch.__version__, 'cuda_available', cuda_available)
-if os.environ.get('LDA_1B_REQUIRE_CUDA') == '1' and not cuda_available:
-    raise SystemExit('torch import succeeded, but CUDA is not available')
-PY"
+  local cuda_arg=()
+  if [[ "${REQUIRE_CUDA}" -eq 1 ]]; then
+    cuda_arg=(--require-cuda)
+  fi
+  run_in_env "${ENV_NAME}" python "${SCRIPT_DIR}/validate_lda_1b_env.py" \
+    --api-root "${API_ROOT}" \
+    --repo "${LDA_REPO}" \
+    --env "${ENV_NAME}" \
+    "${cuda_arg[@]}"
   info "validating LDA-1B native server CLI import"
   run_in_env "${ENV_NAME}" bash -lc "cd '${LDA_REPO}' && python -m deployment.model_server.server_policy --help >/dev/null"
 }
