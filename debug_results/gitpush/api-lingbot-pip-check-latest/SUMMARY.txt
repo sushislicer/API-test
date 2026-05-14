@@ -1,0 +1,20 @@
+Latest API-lingbot-pip-check bundle
+Source result directory: debug_results/result_2/pipeline_envs
+
+Included files:
+- 50_create_api_lingbot_localprefix.json
+- 50_create_api_lingbot_localprefix.failure_excerpt.log
+- 51_api_lingbot_pip_check.json
+- 51_api_lingbot_pip_check.log
+
+Failure chain:
+1. create_api_lingbot_localprefix failed with returncode 1.
+2. The API Lingbot env was not created (env_exists=false, python_exists=false).
+3. The create step ended with missing .conda-pkgs/*.conda.partial rename targets.
+4. api_lingbot_pip_check then failed with returncode 127 because .conda-envs/api-lingbot-va/bin/python does not exist.
+
+Original full logs already tracked in the repo:
+- debug_results/result_2/pipeline_envs/50_create_api_lingbot_localprefix.log
+- debug_results/result_2/pipeline_envs/51_api_lingbot_pip_check.log
+
+This bundle keeps only the failure metadata and the minimal failing excerpts so it is easy to review and push upstream.

@@ -44,6 +44,9 @@ downloads/datasets/**
 !downloads/datasets/.gitkeep
 
 .conda-envs/
+.conda-pkgs/
+.pip-cache/
+checkpoints/
 
 out/
 api/out/
