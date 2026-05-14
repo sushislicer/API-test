@@ -1,0 +1,9 @@
+Environment location: /mnt/ckp/API-test/.conda-envs/api-lingbot-va
+
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/pip-26.1.1-pyh8b19718_0.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/pip-26.1.1-pyh8b19718_0.conda'
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/pip-26.1.1-pyh8b19718_0.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/pip-26.1.1-pyh8b19718_0.conda'
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/libgcc-15.2.0-he0feb66_18.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/libgcc-15.2.0-he0feb66_18.conda'
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/tk-8.6.13-noxft_h366c992_103.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/tk-8.6.13-noxft_h366c992_103.conda'
+[Errno 2] No such file or directory: '/mnt/ckp/API-test/.conda-pkgs/openssl-3.6.2-h35e630c_0.conda.partial' -> '/mnt/ckp/API-test/.conda-pkgs/openssl-3.6.2-h35e630c_0.conda'
+
+done

@@ -1,0 +1,6 @@
+{
+  "check": "api_lingbot_pip_check",
+  "returncode": 127,
+  "status": "failed",
+  "log": "/mnt/ckp/API-test/debug_results/result_2/pipeline_envs/51_api_lingbot_pip_check.log"
+}
