@@ -6,7 +6,22 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 API_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
 DOWNLOAD_ROOT="${DOWNLOAD_ROOT:-${API_ROOT}/downloads}"
 API_CONDA_ENVS_DIR="${API_CONDA_ENVS_DIR:-${API_ROOT}/.conda-envs}"
-CONDA_CREATE_LOCK="${CONDA_CREATE_LOCK:-${API_CONDA_ENVS_DIR}/.conda-create.lock}"
+API_CONDA_PKGS_DIR="${API_CONDA_PKGS_DIR:-${API_ROOT}/.conda-pkgs}"
+API_PIP_CACHE_DIR="${API_PIP_CACHE_DIR:-${API_ROOT}/.pip-cache}"
+CONDA_CREATE_LOCK="${CONDA_CREATE_LOCK:-${API_ROOT}/.conda-create.lock}"
+
+if [[ -z "${CONDA_PKGS_DIRS:-}" ]]; then
+  mkdir -p "${API_CONDA_PKGS_DIR}"
+  export CONDA_PKGS_DIRS="${API_CONDA_PKGS_DIR}"
+fi
+
+if [[ -z "${PIP_CACHE_DIR:-}" ]]; then
+  mkdir -p "${API_PIP_CACHE_DIR}"
+  export PIP_CACHE_DIR="${API_PIP_CACHE_DIR}"
+fi
+
+export PIP_DISABLE_PIP_VERSION_CHECK="${PIP_DISABLE_PIP_VERSION_CHECK:-1}"
+export PIP_ROOT_USER_ACTION="${PIP_ROOT_USER_ACTION:-ignore}"
 
 die() {
   echo "error: $*" >&2

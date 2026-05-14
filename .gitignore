@@ -45,6 +45,7 @@ downloads/datasets/**
 
 .conda-envs/
 .conda-pkgs/
+.conda-create.lock
 .pip-cache/
 checkpoints/
 

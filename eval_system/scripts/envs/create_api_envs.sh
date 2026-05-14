@@ -37,8 +37,11 @@ Options:
   --skip-lda                   Do not create the LDA-1B env.
   --skip-lingbot               Do not create the LingBot-VA env.
   --skip-robotwin              Do not create the RoboTwin env.
+  --lda-torch-index URL        PyTorch wheel index for LDA-1B. Default: create_lda_1b_env.sh default.
+  --skip-lda-torch             Skip LDA-1B torch wheel preinstall.
   --skip-flash-attn            Skip flash-attn in LDA-1B and LingBot-VA envs.
   --skip-lingbot-torch         Skip LingBot-VA torch wheel installation.
+  --lda-require-cuda           Fail LDA-1B validation if torch cannot see CUDA.
   --lingbot-requirements       Install LingBot-VA requirements.txt instead of README package set.
   --robotwin-manual            Use RoboTwin requirements fallback instead of script/_install.sh.
   --download-robotwin-assets   Also run RoboTwin script/_download_assets.sh.
@@ -80,9 +83,21 @@ while [[ $# -gt 0 ]]; do
       CREATE_ROBOTWIN=0
       shift
       ;;
+    --lda-torch-index)
+      LDA_ARGS+=(--torch-index "$2")
+      shift 2
+      ;;
+    --skip-lda-torch)
+      LDA_ARGS+=(--skip-torch)
+      shift
+      ;;
     --skip-flash-attn)
       LDA_ARGS+=(--skip-flash-attn)
       LINGBOT_ARGS+=(--skip-flash-attn)
+      shift
+      ;;
+    --lda-require-cuda)
+      LDA_ARGS+=(--require-cuda)
       shift
       ;;
     --skip-lingbot-torch)

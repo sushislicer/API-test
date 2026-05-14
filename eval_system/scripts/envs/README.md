@@ -19,6 +19,23 @@ By default, the scripts create checkout-local conda prefix envs under
 `.conda-envs/`. This keeps the API test setup independent from pre-existing
 remote envs such as `LDA` or `RoboTwin2`.
 
+The scripts also default conda and pip caches to checkout-local paths:
+
+```bash
+export CONDA_PKGS_DIRS="${API_ROOT}/.conda-pkgs"
+export PIP_CACHE_DIR="${API_ROOT}/.pip-cache"
+```
+
+This avoids corrupting or racing the remote machine's shared conda package
+cache. On remote machines where the checkout is on a slow shared mount, set
+`API_CONDA_PKGS_DIR` and `API_PIP_CACHE_DIR` to a local scratch disk before
+running setup. If conda reports missing `.conda.partial` rename targets, clean
+the API envs and package cache before retrying:
+
+```bash
+bash eval_system/scripts/envs/cleanup_api_envs.sh --yes --package-cache
+```
+
 Create the default API env set sequentially:
 
 ```bash
@@ -164,14 +181,31 @@ The default install follows the LDA-1B README:
 ```bash
 conda create -p .conda-envs/api-lda-1b python=3.10 -y
 conda activate .conda-envs/api-lda-1b
+pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
 pip install -r models/LDA-1B/requirements.txt
 pip install flash-attn --no-build-isolation
 pip install --no-deps -e models/LDA-1B
 ```
 
+The explicit torch install uses the same versions pinned by
+`models/LDA-1B/requirements.txt`; it just makes the remote CUDA wheel selection
+and the failure point deterministic before the larger requirements install.
+
 Useful options:
 
 ```bash
+# Use a different CUDA/PyTorch wheel index
+bash eval_system/scripts/envs/create_lda_1b_env.sh \
+  --env .conda-envs/api-lda-1b \
+  --repo models/LDA-1B \
+  --torch-index https://download.pytorch.org/whl/cu124
+
+# Skip torch only if the existing env already has the correct LDA torch build
+bash eval_system/scripts/envs/create_lda_1b_env.sh \
+  --env .conda-envs/api-lda-1b \
+  --repo models/LDA-1B \
+  --skip-torch
+
 # Skip requirements when you are repairing an existing env
 bash eval_system/scripts/envs/create_lda_1b_env.sh \
   --env .conda-envs/api-lda-1b \
@@ -183,6 +217,19 @@ bash eval_system/scripts/envs/create_lda_1b_env.sh \
   --env .conda-envs/api-lda-1b \
   --repo models/LDA-1B \
   --skip-flash-attn
+
+# Re-run only the setup validation after a remote install
+bash eval_system/scripts/envs/create_lda_1b_env.sh \
+  --env .conda-envs/api-lda-1b \
+  --repo models/LDA-1B \
+  --validate-only
+
+# On a GPU node, also fail validation if torch cannot see CUDA
+bash eval_system/scripts/envs/create_lda_1b_env.sh \
+  --env .conda-envs/api-lda-1b \
+  --repo models/LDA-1B \
+  --validate-only \
+  --require-cuda
 ```
 
 The script does not download LDA checkpoints, Qwen checkpoints, or DINO

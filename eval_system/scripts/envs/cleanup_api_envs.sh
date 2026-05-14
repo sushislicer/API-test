@@ -32,7 +32,7 @@ Options:
   --prefix-only      Remove only checkout-local prefix envs.
   --keep-named       Do not remove named envs.
   --keep-prefixes    Do not remove prefix envs.
-  --package-cache    Also remove ${API_ROOT}/.conda-pkgs if present.
+  --package-cache    Also remove ${API_ROOT}/.conda-pkgs and ${API_ROOT}/.pip-cache if present.
   -h, --help         Show this help.
 
 This script refuses to remove arbitrary paths. Prefix deletion is limited to
@@ -158,11 +158,12 @@ if [[ "${CLEAN_PREFIXES}" -eq 1 ]]; then
 fi
 
 if [[ "${CLEAN_PACKAGE_CACHE}" -eq 1 ]]; then
-  cache_path="${API_ROOT}/.conda-pkgs"
-  if [[ -e "${cache_path}" ]]; then
-    info "removing API-local conda package cache: ${cache_path}"
-    run_or_print rm -rf -- "${cache_path}"
-  else
-    info "API-local conda package cache not found: ${cache_path}"
-  fi
+  for cache_path in "${API_ROOT}/.conda-pkgs" "${API_ROOT}/.pip-cache"; do
+    if [[ -e "${cache_path}" ]]; then
+      info "removing API-local package cache: ${cache_path}"
+      run_or_print rm -rf -- "${cache_path}"
+    else
+      info "API-local package cache not found: ${cache_path}"
+    fi
+  done
 fi

@@ -9,9 +9,14 @@ ENV_NAME="${LDA_1B_ENV_NAME:-${API_CONDA_ENVS_DIR}/api-lda-1b}"
 PYTHON_VERSION="${LDA_1B_PYTHON_VERSION:-3.10}"
 LDA_REPO="${LDA_1B_REPO:-$(default_repo_path "${API_ROOT}/models/LDA-1B")}"
 INSTALL_REQUIREMENTS=1
+INSTALL_TORCH=1
 INSTALL_FLASH_ATTN=1
 INSTALL_EDITABLE=1
 RUN_VALIDATION=1
+LINK_API=1
+REQUIRE_CUDA=0
+TORCH_INDEX_URL="${LDA_1B_TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu124}"
+TORCH_PACKAGES=(torch==2.6.0 torchvision==0.21.0)
 
 usage() {
   cat <<EOF
@@ -23,13 +28,18 @@ Options:
   --env ENV               Conda env name or prefix path. Default: ${ENV_NAME}
   --python VERSION       Python version. Default: ${PYTHON_VERSION}
   --repo PATH            Existing LDA-1B checkout. Default: ${LDA_REPO:-<none>}
+  --torch-index URL      PyTorch wheel index. Default: ${TORCH_INDEX_URL}
+  --skip-torch           Do not preinstall the pinned LDA PyTorch CUDA wheel set.
   --skip-requirements    Do not install requirements.txt.
   --skip-flash-attn      Do not install flash-attn separately.
   --no-editable          Skip pip install -e on the LDA-1B checkout.
   --skip-validation      Do not run import/native-server help checks after install.
+  --validate-only        Only run validation against an existing env.
+  --require-cuda         Fail validation unless torch can see CUDA.
   -h, --help             Show this help.
 
 Default mode follows the LDA-1B README installation:
+  pip install torch==2.6.0 torchvision==0.21.0 --index-url ${TORCH_INDEX_URL}
   pip install -r requirements.txt
   pip install flash-attn --no-build-isolation
   pip install --no-deps -e .
@@ -53,6 +63,14 @@ while [[ $# -gt 0 ]]; do
       LDA_REPO="$(cd "$2" && pwd)"
       shift 2
       ;;
+    --torch-index)
+      TORCH_INDEX_URL="$2"
+      shift 2
+      ;;
+    --skip-torch)
+      INSTALL_TORCH=0
+      shift
+      ;;
     --skip-requirements)
       INSTALL_REQUIREMENTS=0
       shift
@@ -69,6 +87,19 @@ while [[ $# -gt 0 ]]; do
       RUN_VALIDATION=0
       shift
       ;;
+    --validate-only)
+      INSTALL_TORCH=0
+      INSTALL_REQUIREMENTS=0
+      INSTALL_FLASH_ATTN=0
+      INSTALL_EDITABLE=0
+      LINK_API=0
+      RUN_VALIDATION=1
+      shift
+      ;;
+    --require-cuda)
+      REQUIRE_CUDA=1
+      shift
+      ;;
     -h|--help)
       usage
       exit 0
@@ -82,8 +113,55 @@ done
 assert_repo_dir "LDA-1B" "${LDA_REPO}"
 [[ -f "${LDA_REPO}/deployment/model_server/server_policy.py" ]] || die "LDA-1B repo is missing deployment/model_server/server_policy.py: ${LDA_REPO}"
 
-create_conda_env "${ENV_NAME}" "${PYTHON_VERSION}"
-upgrade_pip "${ENV_NAME}"
+validate_lda_env() {
+  info "validating LDA-1B environment imports"
+  run_in_env "${ENV_NAME}" bash -lc "cd '${LDA_REPO}' && LDA_1B_REQUIRE_CUDA='${REQUIRE_CUDA}' python - <<'PY'
+import importlib
+import os
+
+modules = [
+    'torch',
+    'torchvision',
+    'accelerate',
+    'transformers',
+    'diffusers',
+    'websockets',
+    'msgpack',
+    'deployment.model_server.server_policy',
+    'eval_system',
+]
+
+for module in modules:
+    importlib.import_module(module)
+
+import torch
+
+cuda_available = torch.cuda.is_available()
+print('torch', torch.__version__, 'cuda_available', cuda_available)
+if os.environ.get('LDA_1B_REQUIRE_CUDA') == '1' and not cuda_available:
+    raise SystemExit('torch import succeeded, but CUDA is not available')
+PY"
+  info "validating LDA-1B native server CLI import"
+  run_in_env "${ENV_NAME}" bash -lc "cd '${LDA_REPO}' && python -m deployment.model_server.server_policy --help >/dev/null"
+}
+
+if ! conda_env_exists "${ENV_NAME}" && [[ "${INSTALL_TORCH}" -eq 0 && "${INSTALL_REQUIREMENTS}" -eq 0 && "${INSTALL_FLASH_ATTN}" -eq 0 && "${INSTALL_EDITABLE}" -eq 0 ]]; then
+  die "conda env $(conda_env_label "${ENV_NAME}") does not exist"
+fi
+
+if [[ "${INSTALL_TORCH}" -eq 1 || "${INSTALL_REQUIREMENTS}" -eq 1 || "${INSTALL_FLASH_ATTN}" -eq 1 || "${INSTALL_EDITABLE}" -eq 1 ]]; then
+  create_conda_env "${ENV_NAME}" "${PYTHON_VERSION}"
+  upgrade_pip "${ENV_NAME}"
+else
+  info "skipping install steps"
+fi
+
+if [[ "${INSTALL_TORCH}" -eq 1 ]]; then
+  info "installing LDA-1B pinned torch/cu124 wheel set"
+  pip_in_env "${ENV_NAME}" install "${TORCH_PACKAGES[@]}" --index-url "${TORCH_INDEX_URL}"
+else
+  info "skipping torch install"
+fi
 
 if [[ "${INSTALL_REQUIREMENTS}" -eq 1 ]]; then
   [[ -f "${LDA_REPO}/requirements.txt" ]] || die "missing ${LDA_REPO}/requirements.txt"
@@ -107,13 +185,12 @@ else
   info "skipping editable LDA-1B install"
 fi
 
-link_api_package "${ENV_NAME}"
+if [[ "${LINK_API}" -eq 1 ]]; then
+  link_api_package "${ENV_NAME}"
+fi
 
 if [[ "${RUN_VALIDATION}" -eq 1 ]]; then
-  info "validating LDA-1B environment imports"
-  run_in_env "${ENV_NAME}" python -c 'import torch; import eval_system; print("torch", torch.__version__)'
-  info "validating LDA-1B native server module import"
-  run_in_env "${ENV_NAME}" bash -lc "cd '${LDA_REPO}' && python -m deployment.model_server.server_policy --help >/dev/null"
+  validate_lda_env
 else
   info "skipping validation"
 fi
