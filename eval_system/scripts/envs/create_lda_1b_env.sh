@@ -18,8 +18,9 @@ REPAIR_REQUIREMENTS=0
 REPAIR_FLASH_ATTN=0
 BUILD_FLASH_ATTN=0
 REQUIRE_CUDA=0
-FLASH_ATTN_MAX_JOBS="${LDA_1B_FLASH_ATTN_MAX_JOBS:-${FLASH_ATTN_MAX_JOBS:-4}}"
+FLASH_ATTN_MAX_JOBS="${LDA_1B_FLASH_ATTN_MAX_JOBS:-${FLASH_ATTN_MAX_JOBS:-16}}"
 FLASH_ATTN_NVCC_THREADS="${LDA_1B_FLASH_ATTN_NVCC_THREADS:-${FLASH_ATTN_NVCC_THREADS:-1}}"
+FLASH_ATTN_VERBOSE="${LDA_1B_FLASH_ATTN_VERBOSE:-${FLASH_ATTN_VERBOSE:-1}}"
 TORCH_INDEX_URL="${LDA_1B_TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu124}"
 TORCH_PACKAGES=(torch==2.6.0 torchvision==0.21.0)
 
@@ -46,6 +47,7 @@ Options:
   --flash-attn-jobs N    Max parallel jobs for flash-attn builds. Default: ${FLASH_ATTN_MAX_JOBS}
   --flash-attn-nvcc-threads N
                           NVCC threads per flash-attn compile job. Default: ${FLASH_ATTN_NVCC_THREADS}
+  --flash-attn-quiet     Do not pass pip -vvv or verbose compiler env flags.
   --require-cuda         Fail validation unless torch can see CUDA.
   -h, --help             Show this help.
 
@@ -139,6 +141,10 @@ while [[ $# -gt 0 ]]; do
       FLASH_ATTN_NVCC_THREADS="$2"
       shift 2
       ;;
+    --flash-attn-quiet)
+      FLASH_ATTN_VERBOSE=0
+      shift
+      ;;
     --require-cuda)
       REQUIRE_CUDA=1
       shift
@@ -214,9 +220,12 @@ if [[ "${INSTALL_FLASH_ATTN}" -eq 1 ]]; then
   flash_attn_env=(
     env
     "MAX_JOBS=${FLASH_ATTN_MAX_JOBS}"
+    "THREADS=${FLASH_ATTN_MAX_JOBS}"
     "NVCC_THREADS=${FLASH_ATTN_NVCC_THREADS}"
+    "OMP_NUM_THREADS=${FLASH_ATTN_NVCC_THREADS}"
     "CMAKE_BUILD_PARALLEL_LEVEL=${FLASH_ATTN_MAX_JOBS}"
     "MAKEFLAGS=-j${FLASH_ATTN_MAX_JOBS}"
+    "NINJA_STATUS=[ninja %f/%t %o/sec] "
     PIP_PROGRESS_BAR=off
     PIP_DISABLE_PIP_VERSION_CHECK=1
     PIP_ROOT_USER_ACTION=ignore
@@ -225,6 +234,15 @@ if [[ "${INSTALL_FLASH_ATTN}" -eq 1 ]]; then
     TERM=dumb
   )
   flash_attn_args=(install flash-attn --no-build-isolation --no-deps --progress-bar off)
+  if [[ "${FLASH_ATTN_VERBOSE}" -eq 1 ]]; then
+    flash_attn_env+=(
+      VERBOSE=1
+      V=1
+      CMAKE_VERBOSE_MAKEFILE=ON
+      TORCH_EXTENSIONS_VERBOSE=1
+    )
+    flash_attn_args=(-vvv "${flash_attn_args[@]}")
+  fi
   if [[ "${REPAIR_FLASH_ATTN}" -eq 1 ]]; then
     flash_attn_args+=(--force-reinstall --no-cache-dir)
   fi

@@ -37,9 +37,11 @@ bash eval_system/scripts/envs/cleanup_api_envs.sh --yes --package-cache
 ```
 
 Flash-attn source builds can be memory-heavy. The setup scripts default to
-`MAX_JOBS=4` and `NVCC_THREADS=1` for flash-attn builds. On a 32-core / 300 GB
-remote, start with that default or lower it to `--flash-attn-jobs 2` if the
-machine becomes unstable.
+`MAX_JOBS=16`, `THREADS=16`, `NVCC_THREADS=1`, and `OMP_NUM_THREADS=1` for
+flash-attn builds, with verbose pip/compiler logging enabled. On a 32-core /
+300 GB remote, lower this to `--flash-attn-jobs 4` or `--flash-attn-jobs 2` if
+the machine becomes unstable. Add `--flash-attn-quiet` to disable `pip -vvv`
+and verbose compiler flags.
 
 Create the default API env set sequentially:
 
@@ -166,7 +168,7 @@ bash eval_system/scripts/envs/create_lingbot_va_env.sh \
   --repo models/lingbot-va \
   --repair-flash-attn \
   --build-flash-attn \
-  --flash-attn-jobs 4 \
+  --flash-attn-jobs 16 \
   --flash-attn-nvcc-threads 1 \
   --require-cuda
 
@@ -283,7 +285,7 @@ bash eval_system/scripts/envs/create_lda_1b_env.sh \
   --repo models/LDA-1B \
   --repair-flash-attn \
   --build-flash-attn \
-  --flash-attn-jobs 4 \
+  --flash-attn-jobs 16 \
   --flash-attn-nvcc-threads 1 \
   --require-cuda
 

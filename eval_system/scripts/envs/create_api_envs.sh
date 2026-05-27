@@ -42,6 +42,7 @@ Options:
   --skip-flash-attn            Skip flash-attn in LDA-1B and LingBot-VA envs.
   --flash-attn-jobs N          Max parallel jobs for flash-attn builds in LDA-1B and LingBot-VA.
   --flash-attn-nvcc-threads N  NVCC threads per flash-attn compile job in LDA-1B and LingBot-VA.
+  --flash-attn-quiet           Disable verbose flash-attn pip/build logging.
   --skip-lingbot-torch         Skip LingBot-VA torch wheel installation.
   --lingbot-require-cuda       Fail LingBot-VA validation if torch cannot see CUDA.
   --lda-require-cuda           Fail LDA-1B validation if torch cannot see CUDA.
@@ -108,6 +109,11 @@ while [[ $# -gt 0 ]]; do
       LDA_ARGS+=(--flash-attn-nvcc-threads "$2")
       LINGBOT_ARGS+=(--flash-attn-nvcc-threads "$2")
       shift 2
+      ;;
+    --flash-attn-quiet)
+      LDA_ARGS+=(--flash-attn-quiet)
+      LINGBOT_ARGS+=(--flash-attn-quiet)
+      shift
       ;;
     --lda-require-cuda)
       LDA_ARGS+=(--require-cuda)
